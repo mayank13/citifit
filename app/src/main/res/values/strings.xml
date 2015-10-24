@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">CitiFit</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_preferences">PreferencesActivity</string>
+    <string name="title_activity_dashboard">DashboardActivity</string>
+
+    <string name="intro_text">Behold, a data dump from the Fitness API! Check the menu for more actions!</string>
+    <string name="action_delete_session">Delete step count data</string>
+
+</resources>

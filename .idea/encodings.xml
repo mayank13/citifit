@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/cititmobilechallenge/citifit/logger/Log.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/cititmobilechallenge/citifit/logger/LogNode.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/cititmobilechallenge/citifit/logger/LogView.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/cititmobilechallenge/citifit/logger/LogWrapper.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/cititmobilechallenge/citifit/logger/MessageOnlyLogFilter.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/citifit_logo.png" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/profile.jpg" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/splash_screen_bg.jpg" charset="windows-1252" />
+    <file url="PROJECT" charset="UTF-8" />
+  </component>
+</project>
