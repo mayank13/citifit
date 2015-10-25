@@ -2,4 +2,5 @@
 <resources>
     <color name="purple">#50048A</color>
     <color name="white">#FFFFFF</color>
+    <color name="button_red">#E7254A</color>
 </resources>
