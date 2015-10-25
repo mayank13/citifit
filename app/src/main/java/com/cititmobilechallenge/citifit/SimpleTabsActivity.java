@@ -9,9 +9,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
-import com.cititmobilechallenge.citifit.fragments.OneFragment;
-import com.cititmobilechallenge.citifit.fragments.ThreeFragment;
-import com.cititmobilechallenge.citifit.fragments.TwoFragment;
+import com.cititmobilechallenge.citifit.fragments.TasksFragment;
+import com.cititmobilechallenge.citifit.fragments.ProfileFragment;
+import com.cititmobilechallenge.citifit.fragments.GoalsFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,9 +41,9 @@ public class SimpleTabsActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new OneFragment(), "ONE");
-        adapter.addFragment(new TwoFragment(), "TWO");
-        adapter.addFragment(new ThreeFragment(), "THREE");
+        adapter.addFragment(new TasksFragment(), "ONE");
+        adapter.addFragment(new GoalsFragment(), "TWO");
+        adapter.addFragment(new ProfileFragment(), "THREE");
         viewPager.setAdapter(adapter);
     }
 
