@@ -42,6 +42,11 @@
             android:label="@string/title_activity_dashboard" >
         </activity>
 
+        <activity
+            android:name=".SimpleTabsActivity"
+            android:label="@string/title_activity_dashboard" >
+        </activity>
+
         <service android:name="com.parse.PushService" />
         <receiver android:name="com.parse.ParsePushBroadcastReceiver"
             android:exported="false">
