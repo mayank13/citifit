@@ -1,20 +1,18 @@
 package com.cititmobilechallenge.citifit;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentSender;
-import android.graphics.Color;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.cititmobilechallenge.citifit.logger.Log;
-import com.cititmobilechallenge.citifit.logger.LogView;
 import com.cititmobilechallenge.citifit.logger.LogWrapper;
 import com.cititmobilechallenge.citifit.logger.MessageOnlyLogFilter;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -29,7 +27,6 @@ import com.google.android.gms.fitness.Fitness;
 import com.google.android.gms.fitness.data.Bucket;
 import com.google.android.gms.fitness.data.DataPoint;
 import com.google.android.gms.fitness.data.DataSet;
-import com.google.android.gms.fitness.data.DataSource;
 import com.google.android.gms.fitness.data.DataType;
 import com.google.android.gms.fitness.data.Field;
 import com.google.android.gms.fitness.request.DataDeleteRequest;
@@ -43,127 +40,116 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class DashboardActivity extends AppCompatActivity {
+public class DashboardActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
     private LineChart mChart;
 
-    //TODO Google Fit API
-    public static final String TAG = "BasicHistoryApi";
+    public static final String TAG = "DashBoardActivity";
 
     private static final int REQUEST_OAUTH = 1;
     private static final String DATE_FORMAT = "yyyy.MM.dd HH:mm:ss";
 
-    //private LineChart mChart;
     /**
-     *  Track whether an authorization activity is stacking over the current activity, i.e. when
-     *  a known auth error is being resolved, such as showing the account chooser or presenting a
-     *  consent dialog. This avoids common duplications as might happen on screen rotations, etc.
+     * Track whether an authorization activity is stacking over the current activity, i.e. when
+     * a known auth error is being resolved, such as showing the account chooser or presenting a
+     * consent dialog. This avoids common duplications as might happen on screen rotations, etc.
      */
     private static final String AUTH_PENDING = "auth_state_pending";
-    private boolean authInProgress = false;
+
+    private boolean isAuthInProgress = false;
 
     private GoogleApiClient mClient = null;
+
+    private ArrayList<String> mXVals = null;
+    private ArrayList<Entry> mYVals = null; // StepCount
+    private int mCounter = 1; // Counter for no of entries
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
-        mChart = (LineChart) findViewById(R.id.chart1);
-
-        mChart = (LineChart) findViewById(R.id.chart1);
+        mChart = (LineChart) findViewById(R.id.chart);
 
         // no description text
         mChart.setDescription("");
         mChart.setNoDataTextDescription("You need to provide data for the chart.");
-        setWeeklyData();
+
+        mChart.getAxisLeft().setEnabled(false);
+
+        XAxis xAxis = mChart.getXAxis();
+
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
 
 
+        mXVals = new ArrayList<>(7);
+
+        // Create XAxis of week days
+        mXVals.add("Sun");
+        mXVals.add("Mon");
+        mXVals.add("Tue");
+        mXVals.add("Wed");
+        mXVals.add("Thu");
+        mXVals.add("Fri");
+        mXVals.add("Sat");
+
+        mYVals = new ArrayList<>(7);
         // This method sets up our custom logger, which will print all log messages to the device
         // screen, as well as to adb logcat.
         initializeLogging();
 
         if (savedInstanceState != null) {
-            authInProgress = savedInstanceState.getBoolean(AUTH_PENDING);
+            isAuthInProgress = savedInstanceState.getBoolean(AUTH_PENDING);
         }
 
-        buildFitnessClient();
+        //Initialise the GoogleApiClient
+        mClient = new GoogleApiClient.Builder(this)
+                .addApi(Fitness.HISTORY_API)
+                .addScope(new Scope(Scopes.FITNESS_ACTIVITY_READ_WRITE))
+                .addConnectionCallbacks(this).addOnConnectionFailedListener(this).build();
+
     }
 
-    private void setWeeklyData(){
-        ArrayList<Entry> step_data = new ArrayList<Entry>();
-        Entry c1e1 = new Entry(100.000f, 0); // 0 == quarter 1
-        step_data.add(c1e1);
-        Entry c1e2 = new Entry(50.000f, 1); // 1 == quarter 2 ...
-        step_data.add(c1e2);
-        LineDataSet weeklyData = new LineDataSet(step_data,"Weekly Data");
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mClient != null && !mClient.isConnected()) {
+            setDummyData();
+        }
+    }
+
+    // For dummy data
+    private void setDummyData() {
+
+        ArrayList<String> xVals = new ArrayList<String>();
+
+        // Create XAxis of week days
+        xVals.add("Sun");
+        xVals.add("Mon");
+        xVals.add("Tue");
+        xVals.add("Wed");
+        xVals.add("Thu");
+        xVals.add("Fri");
+        xVals.add("Sat");
+
+        ArrayList<Entry> yVals = new ArrayList<Entry>();
+
+        for (int i = 0; i < 7; i++) {
+
+            float mult = (100 + 1);
+            float val = (float) (Math.random() * mult) + 3;// + (float)
+
+            yVals.add(new Entry(val, i));
+        }
+
+        LineDataSet weeklyData = new LineDataSet(yVals, "WeeklyData");
+        ArrayList<LineDataSet> dataSets = new ArrayList<LineDataSet>();
+        dataSets.add(weeklyData); // add the datasets
 
         // create a data object with the datasets
-        ArrayList<String> xVals = new ArrayList<String>();
-        xVals.add("1.Q"); xVals.add("2.Q");
-        LineData data = new LineData(xVals, weeklyData);
+        LineData data = new LineData(xVals, dataSets);
 
         // set data
         mChart.setData(data);
         mChart.invalidate();
-    }
-
-    //TODO Build Fitness Client
-    private void buildFitnessClient() {
-        // Create the Google API Client
-        mClient = new GoogleApiClient.Builder(this)
-                .addApi(Fitness.HISTORY_API)
-                .addScope(new Scope(Scopes.FITNESS_ACTIVITY_READ_WRITE))
-                .addConnectionCallbacks(
-                        new GoogleApiClient.ConnectionCallbacks() {
-                            @Override
-                            public void onConnected(Bundle bundle) {
-                                Log.i(TAG, "Connected!!!");
-                                // Now you can make calls to the Fitness APIs.  What to do?
-                                // Look at some data!!
-                                new InsertAndVerifyDataTask().execute();
-                            }
-
-                            @Override
-                            public void onConnectionSuspended(int i) {
-                                // If your connection to the sensor gets lost at some point,
-                                // you'll be able to determine the reason and react to it here.
-                                if (i == GoogleApiClient.ConnectionCallbacks.CAUSE_NETWORK_LOST) {
-                                    Log.i(TAG, "Connection lost.  Cause: Network Lost.");
-                                } else if (i == GoogleApiClient.ConnectionCallbacks.CAUSE_SERVICE_DISCONNECTED) {
-                                    Log.i(TAG, "Connection lost.  Reason: Service Disconnected");
-                                }
-                            }
-                        }
-                )
-                .addOnConnectionFailedListener(
-                        new GoogleApiClient.OnConnectionFailedListener() {
-                            // Called whenever the API client fails to connect.
-                            @Override
-                            public void onConnectionFailed(ConnectionResult result) {
-                                Log.i(TAG, "Connection failed. Cause: " + result.toString());
-                                if (!result.hasResolution()) {
-                                    // Show the localized error dialog
-                                    GooglePlayServicesUtil.getErrorDialog(result.getErrorCode(),
-                                            DashboardActivity.this, 0).show();
-                                    return;
-                                }
-                                // The failure has a resolution. Resolve it.
-                                // Called typically when the app is not yet authorized, and an
-                                // authorization dialog is displayed to the user.
-                                if (!authInProgress) {
-                                    try {
-                                        Log.i(TAG, "Attempting to resolve failed connection");
-                                        authInProgress = true;
-                                        result.startResolutionForResult(DashboardActivity.this,
-                                                REQUEST_OAUTH);
-                                    } catch (IntentSender.SendIntentException e) {
-                                        Log.e(TAG,
-                                                "Exception while starting resolution activity", e);
-                                    }
-                                }
-                            }
-                        }
-                )
-                .build();
     }
 
     @Override
@@ -185,7 +171,7 @@ public class DashboardActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_OAUTH) {
-            authInProgress = false;
+            isAuthInProgress = false;
             if (resultCode == RESULT_OK) {
                 // Make sure the app is not already connected or attempting to connect
                 if (!mClient.isConnecting() && !mClient.isConnected()) {
@@ -198,96 +184,96 @@ public class DashboardActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putBoolean(AUTH_PENDING, authInProgress);
+        outState.putBoolean(AUTH_PENDING, isAuthInProgress);
     }
 
-    /**
-     *  Create a {@link DataSet} to insert data into the History API, and
-     *  then create and execute a {@link DataReadRequest} to verify the insertion succeeded.
-     *  By using an {@link AsyncTask}, we can schedule synchronous calls, so that we can query for
-     *  data after confirming that our insert was successful. Using asynchronous calls and callbacks
-     *  would not guarantee that the insertion had concluded before the read request was made.
-     *  An example of an asynchronous call using a callback can be found in the example
-     *  on deleting data below.
-     */
-    private class InsertAndVerifyDataTask extends AsyncTask<Void, Void, Void> {
-        protected Void doInBackground(Void... params) {
-            //First, create a new dataset and insertion request.
-            DataSet dataSet = insertFitnessData();
+    @Override
+    public void onConnected(Bundle bundle) {
+        Log.i(TAG, "Connected!!!");
+        // Now you can make calls to the Fitness APIs.  What to do?
+        // Look at some data!!
+        new InsertAndVerifyDataTask().execute();
+    }
 
-            // [START insert_dataset]
-            // Then, invoke the History API to insert the data and await the result, which is
-            // possible here because of the {@link AsyncTask}. Always include a timeout when calling
-            // await() to prevent hanging that can occur from the service being shutdown because
-            // of low memory or other conditions.
-            Log.i(TAG, "Inserting the dataset in the History API");
-            com.google.android.gms.common.api.Status insertStatus =
-                    Fitness.HistoryApi.insertData(mClient, dataSet)
-                            .await(1, TimeUnit.MINUTES);
+    @Override
+    public void onConnectionSuspended(int i) {
+        // If your connection to the sensor gets lost at some point,
+        // you'll be able to determine the reason and react to it here.
+        if (i == GoogleApiClient.ConnectionCallbacks.CAUSE_NETWORK_LOST) {
+            Log.i(TAG, "Connection lost.  Cause: Network Lost.");
+        } else if (i == GoogleApiClient.ConnectionCallbacks.CAUSE_SERVICE_DISCONNECTED) {
+            Log.i(TAG, "Connection lost.  Reason: Service Disconnected");
+        }
+    }
 
-            // Before querying the data, check to see if the insertion succeeded.
-            if (!insertStatus.isSuccess()) {
-                Log.i(TAG, "There was a problem inserting the dataset.");
-                return null;
+    @Override
+    public void onConnectionFailed(ConnectionResult result) {
+        Log.i(TAG, "Connection failed. Cause: " + result.toString());
+        if (!result.hasResolution()) {
+            // Show the localized error dialog
+            GooglePlayServicesUtil.getErrorDialog(result.getErrorCode(),
+                    DashboardActivity.this, 0).show();
+            return;
+        }
+        // The failure has a resolution. Resolve it.
+        // Called typically when the app is not yet authorized, and an
+        // authorization dialog is displayed to the user.
+        if (!isAuthInProgress) {
+            try {
+                Log.i(TAG, "Attempting to resolve failed connection");
+                isAuthInProgress = true;
+                result.startResolutionForResult(DashboardActivity.this,
+                        REQUEST_OAUTH);
+            } catch (IntentSender.SendIntentException e) {
+                Log.e(TAG,
+                        "Exception while starting resolution activity", e);
             }
-
-            // At this point, the data has been inserted and can be read.
-            Log.i(TAG, "Data insert was successful!");
-            // [END insert_dataset]
-
-            // Begin by creating the query.
-            DataReadRequest readRequest = queryFitnessData();
-
-            // [START read_dataset]
-            // Invoke the History API to fetch the data with the query and await the result of
-            // the read request.
-            DataReadResult dataReadResult =
-                    Fitness.HistoryApi.readData(mClient, readRequest).await(1, TimeUnit.MINUTES);
-            // [END read_dataset]
-
-            // For the sake of the sample, we'll print the data so we can see what we just added.
-            // In general, logging fitness information should be avoided for privacy reasons.
-            printData(dataReadResult);
-
-            return null;
         }
     }
 
     /**
-     * Create and return a {@link DataSet} of step count data for the History API.
+     * Create a {@link DataSet} to insert data into the History API, and
+     * then create and execute a {@link DataReadRequest} to verify the insertion succeeded.
+     * By using an {@link AsyncTask}, we can schedule synchronous calls, so that we can query for
+     * data after confirming that our insert was successful. Using asynchronous calls and callbacks
+     * would not guarantee that the insertion had concluded before the read request was made.
+     * An example of an asynchronous call using a callback can be found in the example
+     * on deleting data below.
      */
-    private DataSet insertFitnessData() {
-        Log.i(TAG, "Creating a new data insert request");
+    private class InsertAndVerifyDataTask extends AsyncTask<Void, Void, DataReadResult> {
+        protected DataReadResult doInBackground(Void... params) {
 
-        // [START build_insert_data_request]
-        // Set a start and end time for our data, using a start time of 1 hour before this moment.
-        Calendar cal = Calendar.getInstance();
-        Date now = new Date();
-        cal.setTime(now);
-        long endTime = cal.getTimeInMillis();
-        cal.add(Calendar.HOUR_OF_DAY, -1);
-        long startTime = cal.getTimeInMillis();
+            // At this point, the data has been inserted and can be read.
+            Log.i(TAG, "Data insert was successful!");
 
-        // Create a data source
-        DataSource dataSource = new DataSource.Builder()
-                .setAppPackageName(this)
-                .setDataType(DataType.TYPE_STEP_COUNT_DELTA)
-                .setName(TAG + " - step count")
-                .setType(DataSource.TYPE_RAW)
-                .build();
+            // Begin by creating the query.
+            DataReadRequest readRequest = queryFitnessData();
+            // [END insert_dataset]
+            DataReadResult dataReadResult =
+                    Fitness.HistoryApi.readData(mClient, readRequest).await(1, TimeUnit.MINUTES);
 
-        // Create a data set
-        int stepCountDelta = 1000;
-        DataSet dataSet = DataSet.create(dataSource);
-        // For each data point, specify a start time, end time, and the data value -- in this case,
-        // the number of new steps.
-        DataPoint dataPoint = dataSet.createDataPoint()
-                .setTimeInterval(startTime, endTime, TimeUnit.MILLISECONDS);
-        dataPoint.getValue(Field.FIELD_STEPS).setInt(stepCountDelta);
-        dataSet.add(dataPoint);
-        // [END build_insert_data_request]
+            return dataReadResult;
+        }
 
-        return dataSet;
+        @Override
+        protected void onPostExecute(DataReadResult result) {
+            super.onPostExecute(result);
+
+            processDataReadResult(result);
+
+            if (mYVals != null && mYVals.size() > 0) {
+                LineDataSet weeklyData = new LineDataSet(mYVals, "Weekly Data");
+
+                ArrayList<LineDataSet> dataSets = new ArrayList<>();
+                dataSets.add(weeklyData);
+
+                LineData data = new LineData(mXVals, dataSets);
+
+                // Display the steps values on chart for every day
+                mChart.setData(data);
+                mChart.invalidate();
+            }
+        }
     }
 
     /**
@@ -333,7 +319,7 @@ public class DashboardActivity extends AppCompatActivity {
      * consideration. A better option would be to dump the data you receive to a local data
      * directory to avoid exposing it to other applications.
      */
-    private void printData(DataReadResult dataReadResult) {
+    private void processDataReadResult(DataReadResult dataReadResult) {
         // [START parse_read_data_result]
         // If the DataReadRequest object specified aggregated data, dataReadResult will be returned
         // as buckets containing DataSets, instead of just DataSets.
@@ -343,67 +329,50 @@ public class DashboardActivity extends AppCompatActivity {
             for (Bucket bucket : dataReadResult.getBuckets()) {
                 List<DataSet> dataSets = bucket.getDataSets();
                 for (DataSet dataSet : dataSets) {
-                    dumpDataSet(dataSet);
+                    populateStepsValues(dataSet);
                 }
             }
         } else if (dataReadResult.getDataSets().size() > 0) {
             Log.i(TAG, "Number of returned DataSets is: "
                     + dataReadResult.getDataSets().size());
             for (DataSet dataSet : dataReadResult.getDataSets()) {
-                dumpDataSet(dataSet);
+                populateStepsValues(dataSet);
             }
         }
         // [END parse_read_data_result]
     }
 
     // [START parse_dataset]
-    private void dumpDataSet(DataSet dataSet) {
+    private void populateStepsValues(DataSet dataSet) {
         Log.i(TAG, "Data returned for Data type: " + dataSet.getDataType().getName());
         SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
 
-        //Adding code to show data on the chart
-
-        ArrayList<Entry> step_data = new ArrayList<Entry>();
-
-
-        // create a data object with the datasets
-        ArrayList<String> xVals = new ArrayList<String>();
-        //xVals.add("1.Q"); xVals.add("2.Q");
-
-
         for (DataPoint dp : dataSet.getDataPoints()) {
-            int i = 0 ;
+
             Log.i(TAG, "Data point:");
             Log.i(TAG, "\tType: " + dp.getDataType().getName());
             Log.i(TAG, "\tStart: " + dateFormat.format(dp.getStartTime(TimeUnit.MILLISECONDS)));
             Log.i(TAG, "\tEnd: " + dateFormat.format(dp.getEndTime(TimeUnit.MILLISECONDS)));
-            for(Field field : dp.getDataType().getFields()) {
+
+            // Resets the counter
+            if (mCounter > 7) {
+                mCounter = 1;
+            }
+            for (Field field : dp.getDataType().getFields()) {
+
+                String steps = dp.getValue(field).toString();
                 Log.i(TAG, "\tField: " + field.getName() +
-                        " Value: " + dp.getValue(field));
+                        " Value: " + steps);
 
                 //Generating the entries for the Y axis of chart
-                if(field.getName().equals("steps Value")){
-                    step_data.add(new Entry(dp.getValue(field).asFloat(),i));
-                    xVals.add(Integer.toString(i));
+                if (field.getName().equalsIgnoreCase("steps")) {
+                    mYVals.add(new Entry(Integer.parseInt(steps), mCounter));
                 }
-
+                mCounter++;
             }
         }
 
-        LineDataSet weeklyData = new LineDataSet(step_data,"Weekly Data");
-       final LineData data = new LineData(xVals, weeklyData);
-        // set data
-       runOnUiThread((new Thread(new Runnable() {
-            @Override
-            public void run() {
-                // Display the text we just generated within the LogView.
-                mChart.setData(data);
-                mChart.invalidate();
-            }
-        })));
-
     }
-    // [END parse_dataset]
 
     /**
      * Delete a {@link DataSet} from the History API. In this example, we delete all
@@ -442,7 +411,6 @@ public class DashboardActivity extends AppCompatActivity {
                         }
                     }
                 });
-        // [END delete_dataset]
     }
 
 
@@ -457,7 +425,7 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     /**
-     *  Initialize a custom log class that outputs both to in-app targets and logcat.
+     * Initialize a custom log class that outputs both to in-app targets and logcat.
      */
     private void initializeLogging() {
         // Wraps Android's native log framework.
@@ -467,14 +435,7 @@ public class DashboardActivity extends AppCompatActivity {
         // Filter strips out everything except the message text.
         MessageOnlyLogFilter msgFilter = new MessageOnlyLogFilter();
         logWrapper.setNext(msgFilter);
-        // On screen logging via a customized TextView.
-       // LogView logView = (LogView) findViewById(R.id.sample_logview);
-        //logView.setTextAppearance(this, R.style.Log);
-        //logView.setBackgroundColor(Color.WHITE);
-        //msgFilter.setNext(logView);
-        Log.i(TAG, "Ready");
     }
-
 
 
     @Override
