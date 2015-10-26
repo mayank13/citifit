@@ -6,6 +6,7 @@
     <string name="title_activity_preferences">PreferencesActivity</string>
     <string name="title_activity_dashboard">DashboardActivity</string>
     <string name="title_activity_login">Sign in</string>
+    <string name="title_activity_reward">RewardActivity</string>
 
     <string name="intro_text">Behold, a data dump from the Fitness API! Check the menu for more actions!</string>
     <string name="action_delete_session">Delete step count data</string>

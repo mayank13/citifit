@@ -8,9 +8,10 @@ import android.os.Bundle;
 
 import com.cititmobilechallenge.citifit.R;
 import com.cititmobilechallenge.citifit.adaptors.RewardListViewAdaptor;
+import com.cititmobilechallenge.citifit.common.FontHelper;
 import com.cititmobilechallenge.citifit.modal.RewardHolder;
 
-import org.lucasr.twowayview.TwoWayView;
+import org.lucasr.twowayview.widget.TwoWayView;
 
 import java.util.ArrayList;
 
@@ -31,6 +32,7 @@ public class RewardActivity extends Activity {
 
         setContentView(R.layout.activity_reward);
 
+        FontHelper.applyFont(this,findViewById(R.id.rl_reward_container));
         mRewardListView = (TwoWayView) findViewById(R.id.rewardListView);
 
         initList();
@@ -38,6 +40,7 @@ public class RewardActivity extends Activity {
         adaptor = new RewardListViewAdaptor(mRewardList, this);
 
         mRewardListView.setAdapter(adaptor);
+
 
     }
 
@@ -47,23 +50,23 @@ public class RewardActivity extends Activity {
 
         //Populating dummy data
 
-        Bitmap scaledImage1 = decodeSampledBitmapFromResource(getResources(), R.drawable.r2, 200, 200);
+        Bitmap scaledImage1 = decodeSampledBitmapFromResource(getResources(), R.drawable.r2, 400, 400);
         RewardHolder reward1 = new RewardHolder(null, null, null, null, scaledImage1);
         mRewardList.add(reward1);
 
-        Bitmap scaledImage2 = decodeSampledBitmapFromResource(getResources(), R.drawable.r3, 200, 200);
+        Bitmap scaledImage2 = decodeSampledBitmapFromResource(getResources(), R.drawable.r3, 400, 400);
         RewardHolder reward2 = new RewardHolder(null, null, null, null, scaledImage2);
         mRewardList.add(reward2);
 
-        Bitmap scaledImage3 = decodeSampledBitmapFromResource(getResources(), R.drawable.r4, 200, 200);
+        Bitmap scaledImage3 = decodeSampledBitmapFromResource(getResources(), R.drawable.r4, 400, 400);
         RewardHolder reward3 = new RewardHolder(null, null, null, null, scaledImage3);
         mRewardList.add(reward3);
 
-        Bitmap scaledImage4 = decodeSampledBitmapFromResource(getResources(), R.drawable.r5, 200, 200);
+        Bitmap scaledImage4 = decodeSampledBitmapFromResource(getResources(), R.drawable.r5, 400, 400);
         RewardHolder reward4 = new RewardHolder(null, null, null, null, scaledImage4);
         mRewardList.add(reward4);
 
-        Bitmap scaledImage5 = decodeSampledBitmapFromResource(getResources(), R.drawable.r6, 200, 200);
+        Bitmap scaledImage5 = decodeSampledBitmapFromResource(getResources(), R.drawable.r6, 400, 400);
         RewardHolder reward5 = new RewardHolder(null, null, null, null, scaledImage5);
         mRewardList.add(reward5);
 
