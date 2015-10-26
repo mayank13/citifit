@@ -3,7 +3,9 @@
     <color name="purple">#50048A</color>
     <color name="white">#FFFFFF</color>
     <color name="red">#E7254A</color>
-    <color name= "bg_grey">#FAFAFA</color>
+    <color name="bg_grey">#FAFAFA</color>
+    <color name="dark_grey">#4D4D4D</color>
+    <color name="black">#000000</color>
     <color name="colorPrimary">#50048A</color>
     <color name="colorPrimaryDark">#50048A</color>
     <color name="textColorPrimary">#FFFFFF</color>
