@@ -3,6 +3,7 @@
     <color name="purple">#50048A</color>
     <color name="white">#FFFFFF</color>
     <color name="red">#E7254A</color>
+    <color name= "bg_grey">#FAFAFA</color>
     <color name="colorPrimary">#50048A</color>
     <color name="colorPrimaryDark">#50048A</color>
     <color name="textColorPrimary">#FFFFFF</color>

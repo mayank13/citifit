@@ -5,6 +5,7 @@
     android:id="@+id/rl_reward_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg_grey"
     tools:context=".RewardActivity">
 
     <!--
@@ -24,10 +25,20 @@
     -->
 
     <LinearLayout
+        android:id="@+id/ll_rewardsContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:background="@color/bg_grey"
         android:padding="20dp">
+
+        <ImageView
+            android:id="@+id/citifit_rewards_top"
+            android:layout_width="wrap_content"
+            android:layout_height="23dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/citifit_rewards_top" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -35,8 +46,8 @@
             android:layout_gravity="center_horizontal"
             android:tag="@string/subtitle"
             android:text="@string/lets_get_started"
-            android:textColor="@color/red"
-            android:textAppearance="?android:attr/textAppearanceMedium"/>
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/red" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -45,8 +56,7 @@
             android:layout_marginTop="20dp"
             android:tag="@string/title"
             android:text="@string/chose_your_reward"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            />
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -56,6 +66,16 @@
             android:tag="@string/subtitle"
             android:text="@string/reward_and_task" />
 
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_horizontalListContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_rewardsContainer"
+        android:orientation="vertical"
+        android:padding="0dp">
 
         <org.lucasr.twowayview.widget.TwoWayView xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -68,6 +88,8 @@
             android:drawSelectorOnTop="false"
             app:twowayview_layoutManager="ListLayoutManager"
             tools:context=".RewardActivity" />
+
+
     </LinearLayout>
 
 
