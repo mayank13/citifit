@@ -31,11 +31,13 @@
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="begin">Begin</string>
+
     <!--Font Tags-->
     <string name="title">title</string>
     <string name="subtitle">subtitle</string>
     <string name="content">content</string>
 
+    <!--Reward Activity tags-->
     <string name="goals_to_be_achieved">Goals to be achieved in %s days</string>
     <string name="mrp">MRP: %s</string>
     <string name="points_needed">Points Needed: %s</string>
@@ -44,6 +46,7 @@
     <string name="lets_get_started">Awesome! Let\'s get you started</string>
     <string name="chose_your_reward">Choose your reward</string>
     <string name="reward_and_task">We will prepare your daily tasks for you to follow based on your goal.</string>
+    <string name="skip">SKIP</string>
 
     <!--Tabs Text - Tasks-->
     <string name="task_tab_header">Your Current Goal</string>
