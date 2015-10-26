@@ -44,10 +44,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:tag="@string/subtitle"
+            android:tag="@string/title"
             android:text="@string/lets_get_started"
+            android:textSize="16dp"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/red" />
+            android:textColor="@color/purple" />
 
         <TextView
             android:layout_width="wrap_content"
