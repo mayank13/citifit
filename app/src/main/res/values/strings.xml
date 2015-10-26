@@ -45,5 +45,14 @@
     <string name="chose_your_reward">Choose your reward</string>
     <string name="reward_and_task">We will prepare your daily tasks for you to follow based on your goal.</string>
 
+    <!--Tabs Text - Tasks-->
+    <string name="task_tab_header">Your Current Goal</string>
+    <string name="task_type_run">Run</string>
+    <string name="task_type_walk">Walk</string>
+    <string name="task_type_cycle">Cycle</string>
+    <string name="task_type_run_unit">kms</string>
+    <string name="task_type_walk_unit">kms</string>
+    <string name="task_type_cycle_unit">kms</string>
+
 
 </resources>
