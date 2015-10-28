@@ -2,6 +2,7 @@ package com.cititmobilechallenge.citifit;
 
 import android.app.Application;
 
+import com.cititmobilechallenge.citifit.helper.ParseUtils;
 import com.parse.Parse;
 import com.parse.ParseInstallation;
 
@@ -12,7 +13,8 @@ public class CitiFitApplication extends Application{
     @Override
     public void onCreate() {
         super.onCreate();
-        Parse.initialize(this, "3kVzn5ywKHuEzmrmhrbpAVZK7Qj39qHbaermdroW", "ngrluVLztOHAXHeqhcFJwJeiiRltpUuMxtB4KJat");
-        ParseInstallation.getCurrentInstallation().saveInBackground();
+       /* Parse.initialize(this, "3kVzn5ywKHuEzmrmhrbpAVZK7Qj39qHbaermdroW", "ngrluVLztOHAXHeqhcFJwJeiiRltpUuMxtB4KJat");
+        ParseInstallation.getCurrentInstallation().saveInBackground();*/
+        ParseUtils.registerParse(this);
     }
 }
