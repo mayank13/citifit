@@ -36,5 +36,6 @@ dependencies {
     compile 'org.lucasr.twowayview:layouts:1.0.0-SNAPSHOT@aar'
     compile 'com.android.support:cardview-v7:23.0.+'
     compile 'com.android.support:recyclerview-v7:23.0.+'
+    compile 'com.dlazaro66.wheelindicatorview:WheelIndicatorView:1.0.0'
 
 }

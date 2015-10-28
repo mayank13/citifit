@@ -57,5 +57,15 @@
     <string name="task_type_walk_unit">kms</string>
     <string name="task_type_cycle_unit">kms</string>
 
+    <!-- Goals Screen Text-->
+    <string name="your_current_goal">Your Current Goal</string>
+    <string name="change_goal">Change Goal</string>
+    <string name="mrp_goal">MRP</string>
+    <string name="citi_points">Citi Points</string>
+    <string name="you_are_doing_great">You\'re doing great!</string>
+    <string name="current_points">Current Points</string>
+    <string name="days_left">Days Left</string>
+    <string name="weekly_track">Weekly Track</string>
+
 
 </resources>
