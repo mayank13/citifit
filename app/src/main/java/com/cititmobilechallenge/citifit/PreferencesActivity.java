@@ -29,7 +29,7 @@ public class PreferencesActivity extends AppCompatActivity {
         visitDashBoardTabbed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(PreferencesActivity.this, SimpleTabsActivity.class);
+                Intent i = new Intent(PreferencesActivity.this, CitiFitDashboardActivity.class);
                 startActivity(i);
             }
         });

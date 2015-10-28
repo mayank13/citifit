@@ -1,13 +1,13 @@
 package com.cititmobilechallenge.citifit;
 
-import android.app.Activity;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
-import com.cititmobilechallenge.citifit.R;
 import com.cititmobilechallenge.citifit.adaptors.RewardListViewAdaptor;
 import com.cititmobilechallenge.citifit.common.FontHelper;
 import com.cititmobilechallenge.citifit.modal.RewardHolder;
@@ -33,7 +33,7 @@ public class RewardActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_reward);
 
-        FontHelper.applyFont(this,findViewById(R.id.rl_reward_container));
+        FontHelper.applyFont(this, findViewById(R.id.rl_reward_container));
         mRewardListView = (TwoWayView) findViewById(R.id.rewardListView);
 
         initList();
@@ -43,6 +43,13 @@ public class RewardActivity extends AppCompatActivity {
         mRewardListView.setAdapter(adaptor);
 
 
+    }
+
+    public void onSkip(View view) {
+        if (view.getId() == R.id.btnSkip) {
+            Intent intent = new Intent(this, CitiFitDashboardActivity.class);
+            startActivity(intent);
+        }
     }
 
     private void initList() {
