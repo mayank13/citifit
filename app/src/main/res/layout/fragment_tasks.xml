@@ -133,8 +133,19 @@
                 android:id="@+id/taskStart"
                 android:textSize="16sp"
                 android:layout_margin="16dp"
+                android:clickable="true"
                 android:layout_below="@+id/tasksSummarySeparator"
                  />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Tracking"
+                android:visibility="gone"
+                android:id="@+id/trackingAnimatedText"
+                android:layout_alignBottom="@+id/taskStart"
+                android:layout_centerHorizontal="true" />
 
 
         </RelativeLayout>
