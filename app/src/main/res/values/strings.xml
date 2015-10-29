@@ -70,5 +70,11 @@
 
     <string name="home">Home</string>
 
+    <string name="redeem">Redeem</string>
+    <string name="track">Track</string>
+    <string name="profile_name">Profile Name</string>
+    <string name="profile_citipoints">%s Citi Points</string>
+    <string name="profile_image">Profile Image</string>
+
 
 </resources>

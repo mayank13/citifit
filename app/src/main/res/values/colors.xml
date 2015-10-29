@@ -12,5 +12,8 @@
     <color name="windowBackground">#FFFFFF</color>
     <color name="navigationBarColor">#000000</color>
     <color name="colorAccent">#c8e8ff</color>
+    <color name="light_purple">#A47EC3</color>
+    <color name="light_blue">#3BBFEF</color>
+    <color name="light_gray">#9BA6BF</color>
 
 </resources>

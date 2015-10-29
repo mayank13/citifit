@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_grey"
-    tools:context="info.androidhive.materialtabs.fragments.TwoFragment">
+    tools:context="com.cititmobilechallenge.citifit.fragments.GoalsFragment">
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -45,7 +45,8 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_below="@id/rl_goal_header"
-            android:layout_gravity="center">
+            android:layout_gravity="center"
+            android:background="@color/white">
 
             <RelativeLayout
                 android:layout_width="fill_parent"
