@@ -1,4 +1,4 @@
-package com.cititmobilechallenge.citifit;
+package com.cititmobilechallenge.citifit.activity;
 
 
 import android.content.Intent;
@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.cititmobilechallenge.citifit.R;
 import com.cititmobilechallenge.citifit.adaptors.RewardListViewAdaptor;
 import com.cititmobilechallenge.citifit.common.FontHelper;
 import com.cititmobilechallenge.citifit.modal.RewardHolder;

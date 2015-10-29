@@ -1,4 +1,4 @@
-package com.cititmobilechallenge.citifit;
+package com.cititmobilechallenge.citifit.application;
 
 import android.app.Application;
 
