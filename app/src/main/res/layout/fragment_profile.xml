@@ -1,0 +1,185 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl_profie_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_grey"
+    tools:context="com.cititmobilechallenge.citifit.fragments.ProfileFragment">
+
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/profileCardView"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginTop="15dp"
+        android:background="@color/white">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/ll_profile_container"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/profileImage"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_gravity="center_horizontal"
+                    android:contentDescription="@string/profile_image"
+                    android:src="@drawable/profile" />
+
+                <TextView
+                    android:id="@+id/profileName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="20dp"
+                    android:tag="@string/title"
+                    android:text="John Doe"
+                    android:textSize="20sp"
+                    android:textColor="@color/purple" />
+
+                <TextView
+                    android:id="@+id/totalCurrentPoints"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="5dp"
+                    android:tag="@string/content"
+                    android:text="1491 Citi Points"
+                    android:textColor="@color/dark_grey" />
+
+                <Button
+                    android:id="@+id/btnRedeem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/button_rounded_corners"
+                    android:tag="@string/subtitle"
+                    android:text="@string/redeem"
+                    android:textColor="@color/red" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/profileSeparator"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/ll_profile_container"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/darker_gray" />
+
+
+            <TextView
+                android:id="@+id/textTrack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/profileSeparator"
+                android:layout_margin="10dp"
+                android:tag="@string/title"
+                android:text="@string/track"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+
+            <ImageView
+                android:id="@+id/run_walk_cycle_image"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_below="@+id/textTrack"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/profile_preferences_track" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/run_walk_cycle_image"
+                android:layout_marginLeft="30dp"
+                android:layout_marginStart="30dp"
+                android:layout_toEndOf="@+id/run_walk_cycle_image"
+                android:layout_toRightOf="@+id/run_walk_cycle_image">
+
+                <RelativeLayout
+                    android:id="@+id/rl_run"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+
+                    <View
+                        android:id="@+id/purple_circle"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/circle_purple" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="6dp"
+                        android:layout_toRightOf="@id/purple_circle"
+                        android:tag="@string/title"
+                        android:text="@string/task_type_run"
+                        android:textColor="@color/light_gray"
+                        android:textSize="16sp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_walk"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/rl_run"
+                    android:layout_marginTop="6dp">
+
+                    <View
+                        android:id="@+id/blue_circle"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/circle_blue" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="6dp"
+                        android:layout_toRightOf="@id/blue_circle"
+                        android:tag="@string/title"
+                        android:text="@string/task_type_walk"
+                        android:textColor="@color/light_gray"
+                        android:textSize="16sp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_cycle"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/rl_walk"
+                    android:layout_marginTop="6dp">
+
+                    <View
+                        android:id="@+id/gray_circle"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/circle_gray" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="6dp"
+                        android:layout_toRightOf="@id/gray_circle"
+                        android:tag="@string/title"
+                        android:text="@string/task_type_cycle"
+                        android:textColor="@color/light_gray"
+                        android:textSize="16sp" />
+                </RelativeLayout>
+            </RelativeLayout>
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>
+

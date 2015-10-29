@@ -86,4 +86,13 @@
         android:layout_below="@+id/horizontalScrollView"
         android:layout_centerHorizontal="true" />
 
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="DashBoard"
+        android:id="@+id/visitDashBoardTabbed"
+        android:layout_below="@+id/visitDashBoard"
+        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>

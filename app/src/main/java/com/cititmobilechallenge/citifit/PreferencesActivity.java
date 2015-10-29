@@ -10,6 +10,7 @@ import android.widget.Button;
 
 public class PreferencesActivity extends AppCompatActivity {
     private Button visitDashBoard = null;
+    private Button visitDashBoardTabbed = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,6 +21,15 @@ public class PreferencesActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(PreferencesActivity.this, DashboardActivity.class);
+                startActivity(i);
+            }
+        });
+
+        visitDashBoardTabbed = (Button)findViewById(R.id.visitDashBoardTabbed);
+        visitDashBoardTabbed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(PreferencesActivity.this, CitiFitDashboardActivity.class);
                 startActivity(i);
             }
         });
