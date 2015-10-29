@@ -1,4 +1,4 @@
-package com.cititmobilechallenge.citifit;
+package com.cititmobilechallenge.citifit.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.cititmobilechallenge.citifit.R;
 import com.cititmobilechallenge.citifit.common.FontHelper;
 
 /**
