@@ -67,10 +67,6 @@
             android:label="@string/title_activity_dashboard"
             android:screenOrientation="portrait"></activity>
 
-        <activity
-            android:name=".RewardActivity"
-            android:label="@string/title_activity_reward" >
-        </activity>
         <service android:name="com.parse.PushService" />
 
         <receiver
