@@ -2,6 +2,7 @@ package com.cititmobilechallenge.citifit.application;
 
 import android.app.Application;
 
+import com.cititmobilechallenge.citifit.helper.ParseUtils;
 import com.cititmobilechallenge.citifit.logger.Log;
 import com.cititmobilechallenge.citifit.logger.LogWrapper;
 import com.cititmobilechallenge.citifit.logger.MessageOnlyLogFilter;
@@ -15,9 +16,9 @@ public class CitiFitApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        Parse.initialize(this, "3kVzn5ywKHuEzmrmhrbpAVZK7Qj39qHbaermdroW", "ngrluVLztOHAXHeqhcFJwJeiiRltpUuMxtB4KJat");
-        ParseInstallation.getCurrentInstallation().saveInBackground();
-
+        /*Parse.initialize(this, "3kVzn5ywKHuEzmrmhrbpAVZK7Qj39qHbaermdroW", "ngrluVLztOHAXHeqhcFJwJeiiRltpUuMxtB4KJat");
+        ParseInstallation.getCurrentInstallation().saveInBackground();*/
+        ParseUtils.registerParse(this);
         initializeLogging();
     }
 
