@@ -4,8 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-
 import com.cititmobilechallenge.citifit.activity.CitiFitDashboardActivity;
+import com.cititmobilechallenge.citifit.common.Constants;
 import com.cititmobilechallenge.citifit.helper.NotificationUtils;
 import com.parse.ParsePushBroadcastReceiver;
 
@@ -20,8 +20,6 @@ public class CustomPushReceiver extends ParsePushBroadcastReceiver {
     private final String TAG = CustomPushReceiver.class.getSimpleName();
 
     private NotificationUtils notificationUtils;
-
-    private Intent parseIntent;
 
     public CustomPushReceiver() {
         super();
@@ -38,9 +36,6 @@ public class CustomPushReceiver extends ParsePushBroadcastReceiver {
             JSONObject json = new JSONObject(intent.getExtras().getString("com.parse.Data"));
 
             Log.e(TAG, "Push received: " + json);
-
-            parseIntent = intent;
-
             parsePushJson(context, json);
 
         } catch (JSONException e) {
@@ -68,12 +63,23 @@ public class CustomPushReceiver extends ParsePushBroadcastReceiver {
         try {
             boolean isBackground = json.getBoolean("is_background");
             JSONObject data = json.getJSONObject("data");
-            String title = data.getString("title");
+            String type = data.getString("type");
             String message = data.getString("message");
+            String goal_unit = data.getString("goal_unit");
+            String goal_value = data.getString("goal_value");
+            String points = data.getString("points");
+            String title = data.getString("title");
 
             if (!isBackground) {
                 Intent resultIntent = new Intent(context, CitiFitDashboardActivity.class);
-                showNotificationMessage(context, title, message, resultIntent);
+
+                resultIntent.putExtra(Constants.NOTIFICATION_MESSAGE, message);
+                resultIntent.putExtra(Constants.NOTIFICATION_TASK, type);
+                resultIntent.putExtra(Constants.NOTIFICATION_GOAL_UNIT, goal_unit);
+                resultIntent.putExtra(Constants.NOTIFICATION_GOAL_VALUE, goal_value);
+                resultIntent.putExtra(Constants.NOTIFICATION_POINTS, points);
+                resultIntent.putExtra(Constants.NOTIFICATION_TITLE, title);
+                showNotificationMessage(context, resultIntent);
             }
 
         } catch (JSONException e) {
@@ -87,18 +93,14 @@ public class CustomPushReceiver extends ParsePushBroadcastReceiver {
      * If the app is in background, launches the app
      *
      * @param context
-     * @param title
-     * @param message
      * @param intent
      */
-    private void showNotificationMessage(Context context, String title, String message, Intent intent) {
+    private void showNotificationMessage(Context context, Intent intent) {
 
         notificationUtils = new NotificationUtils(context);
 
-        intent.putExtras(parseIntent.getExtras());
-
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
-        notificationUtils.showNotificationMessage(title, message, intent);
+        notificationUtils.showNotificationMessage(intent);
     }
 }

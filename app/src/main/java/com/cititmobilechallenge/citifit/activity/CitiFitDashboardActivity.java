@@ -36,6 +36,13 @@ public class CitiFitDashboardActivity extends AppCompatActivity {
         String goalDays = intent.getStringExtra(Constants.GOAL_DAYS_LEFT);
         String goalName = intent.getStringExtra(Constants.GOAL_NAME);
 
+        // From Notification
+
+        String task = intent.getStringExtra(Constants.NOTIFICATION_TASK);
+        String goalValue = intent.getStringExtra(Constants.NOTIFICATION_GOAL_VALUE);
+        String goalUnit = intent.getStringExtra(Constants.NOTIFICATION_GOAL_UNIT);
+        String points = intent.getStringExtra(Constants.NOTIFICATION_POINTS);
+
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         mToolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.black));
@@ -52,7 +59,7 @@ public class CitiFitDashboardActivity extends AppCompatActivity {
 
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
 
-        mAdapter = new PagerAdapter(getSupportFragmentManager(), NO_OF_TABS, goalToSet, goalPrice, goalPoints, goalDays, goalName);
+        mAdapter = new PagerAdapter(getSupportFragmentManager(), NO_OF_TABS, goalToSet, goalPrice, goalPoints, goalDays, goalName, task, goalUnit, goalValue, points);
 
         mViewPager.setAdapter(mAdapter);
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));

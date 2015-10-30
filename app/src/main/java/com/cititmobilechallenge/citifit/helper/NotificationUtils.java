@@ -15,6 +15,7 @@ import android.text.TextUtils;
 
 import com.cititmobilechallenge.citifit.R;
 import com.cititmobilechallenge.citifit.application.AppConfig;
+import com.cititmobilechallenge.citifit.common.Constants;
 
 import java.util.List;
 
@@ -35,7 +36,14 @@ public class NotificationUtils {
         this.mContext = mContext;
     }
 
-    public void showNotificationMessage(String title, String message, Intent intent) {
+    public void showNotificationMessage(Intent intent) {
+
+        String message = intent.getStringExtra(Constants.NOTIFICATION_MESSAGE);
+        String task = intent.getStringExtra(Constants.NOTIFICATION_TASK);
+        String points = intent.getStringExtra(Constants.NOTIFICATION_POINTS);
+        String goalUnit = intent.getStringExtra(Constants.NOTIFICATION_GOAL_UNIT);
+        String goalValue = intent.getStringExtra(Constants.NOTIFICATION_GOAL_VALUE);
+        String title = intent.getStringExtra(Constants.NOTIFICATION_TITLE);
 
         // Check for empty push message
         if (TextUtils.isEmpty(message))
@@ -43,46 +51,63 @@ public class NotificationUtils {
 
         if (isAppIsInBackground(mContext)) {
 
-            intent.putExtra("title", title);
-            intent.putExtra("message", message);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
+            intent.putExtra(Constants.NOTIFICATION_TASK, task);
+            intent.putExtra(Constants.NOTIFICATION_GOAL_UNIT, goalUnit);
+            intent.putExtra(Constants.NOTIFICATION_GOAL_VALUE, goalValue);
+            intent.putExtra(Constants.NOTIFICATION_POINTS, points);
             // notification icon
             int icon = R.mipmap.ic_launcher;
 
-            int smallIcon = R.drawable.run_icon;
+            int smallIcon = getTaskIconByType(task);
 
             int mNotificationId = AppConfig.NOTIFICATION_ID;
 
             PendingIntent resultPendingIntent =
-                    PendingIntent.getActivity(
-                            mContext,
-                            0,
-                            intent,
-                            PendingIntent.FLAG_CANCEL_CURRENT
-                    );
+                    PendingIntent.getActivity(mContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT
+                            | PendingIntent.FLAG_ONE_SHOT);
 
             NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
 
-            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
-                    mContext);
+            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(mContext);
             Notification notification = mBuilder.setSmallIcon(smallIcon).setTicker(title).setWhen(0)
                     .setAutoCancel(true)
                     .setContentTitle(title)
+                    .setContentText(message)
                     .setStyle(inboxStyle)
                     .setContentIntent(resultPendingIntent)
                     .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                     .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
-                    .setContentText(message)
                     .build();
 
             NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
             notificationManager.notify(mNotificationId, notification);
         } else {
-            intent.putExtra("title", title);
-            intent.putExtra("message", message);
+
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             mContext.startActivity(intent);
         }
+    }
+
+    private int getTaskIconByType(String type) {
+        int taskIconId = R.drawable.run_icon;
+        switch (type) {
+            case "Run":
+                taskIconId = R.drawable.run_icon;
+                break;
+            case "Walk":
+                taskIconId = R.drawable.walk_icon;
+                break;
+            case "Cycle":
+                taskIconId = R.drawable.cycle_icon;
+                break;
+            default:
+                break;
+
+        }
+        return taskIconId;
     }
 
     /**
@@ -114,6 +139,6 @@ public class NotificationUtils {
         }
 
         //return isInBackground;
-        return true;
+        return isInBackground;
     }
 }

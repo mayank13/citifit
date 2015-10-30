@@ -21,7 +21,7 @@ public class PrefManager {
     int PRIVATE_MODE = 0;
 
     // Shared pref file name
-    private static final String PREF_NAME = "AndroidHive";
+    private static final String PREF_NAME = "CitiFit";
 
     // All Shared Preferences Keys
     private static final String IS_LOGIN = "IsLoggedIn";

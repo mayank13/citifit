@@ -22,7 +22,13 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
     private String mGoalDaysLeft;
     private String mGoalName;
 
-    public PagerAdapter(FragmentManager fm, int noOfTabs, int goalSelectedPos, String goalPrice, String goalPoints, String goalDays, String goalName) {
+    // From Notification
+    private String mTask;
+    private String mGoalUnit;
+    private String mGoalValue;
+    private String mPoints;
+
+    public PagerAdapter(FragmentManager fm, int noOfTabs, int goalSelectedPos, String goalPrice, String goalPoints, String goalDays, String goalName, String task, String goalUnit, String goalValue, String points) {
         super(fm);
         mNoOfTabs = noOfTabs;
         mGoalSelectedPostion = goalSelectedPos;
@@ -30,6 +36,10 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
         mGoalDaysLeft = goalDays;
         mGoalPoints = goalPoints;
         mGoalName = goalName;
+        mTask = task;
+        mGoalUnit = goalUnit;
+        mGoalValue = goalValue;
+        mPoints = points;
     }
 
     @Override
@@ -39,16 +49,22 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
         switch (position) {
             case 0:
                 fragment = TasksFragment.getInstance();
+                Bundle taskBundle = new Bundle();
+                taskBundle.putString(Constants.NOTIFICATION_TASK, mTask);
+                taskBundle.putString(Constants.NOTIFICATION_GOAL_UNIT, mGoalUnit);
+                taskBundle.putString(Constants.NOTIFICATION_GOAL_VALUE, mGoalValue);
+                taskBundle.putString(Constants.NOTIFICATION_POINTS, mPoints);
+                fragment.setArguments(taskBundle);
                 break;
             case 1:
                 fragment = GoalsFragment.getInstance();
-                Bundle bundle = new Bundle();
-                bundle.putInt(Constants.GOAL_SELECTED_POSITION_TAG, mGoalSelectedPostion);
-                bundle.putString(Constants.GOAL_PRICE, mGoalPrice);
-                bundle.putString(Constants.GOAL_POINTS, mGoalPoints);
-                bundle.putString(Constants.GOAL_DAYS_LEFT, mGoalDaysLeft);
-                bundle.putString(Constants.GOAL_NAME, mGoalName);
-                fragment.setArguments(bundle);
+                Bundle goalsBundle = new Bundle();
+                goalsBundle.putInt(Constants.GOAL_SELECTED_POSITION_TAG, mGoalSelectedPostion);
+                goalsBundle.putString(Constants.GOAL_PRICE, mGoalPrice);
+                goalsBundle.putString(Constants.GOAL_POINTS, mGoalPoints);
+                goalsBundle.putString(Constants.GOAL_DAYS_LEFT, mGoalDaysLeft);
+                goalsBundle.putString(Constants.GOAL_NAME, mGoalName);
+                fragment.setArguments(goalsBundle);
                 break;
             case 2:
                 fragment = ProfileFragment.getInstance();
