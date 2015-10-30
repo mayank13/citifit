@@ -3,7 +3,6 @@ package com.cititmobilechallenge.citifit.fragments;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -17,6 +16,7 @@ import android.widget.TextView;
 import com.cititmobilechallenge.citifit.R;
 import com.cititmobilechallenge.citifit.common.Constants;
 import com.cititmobilechallenge.citifit.common.FontHelper;
+import com.cititmobilechallenge.citifit.common.Utils;
 import com.cititmobilechallenge.citifit.logger.Log;
 import com.dlazaro66.wheelindicatorview.WheelIndicatorItem;
 import com.dlazaro66.wheelindicatorview.WheelIndicatorView;
@@ -152,8 +152,6 @@ public class GoalsFragment extends Fragment implements GoogleApiClient.Connectio
 
         mYVals = new ArrayList<>(7);
 
-        Bitmap goalImage = getGoalImageByGoalSelection();
-
         setGoalView();
 
         return view;
@@ -177,19 +175,22 @@ public class GoalsFragment extends Fragment implements GoogleApiClient.Connectio
         Bitmap image = null;
         switch (mGoalSelectedPos) {
             case Constants.GOAL_KINDLE:
-                image = BitmapFactory.decodeResource(getResources(), R.drawable.kindle_goal);
+                image = Utils.decodeSampledBitmapFromResource(getResources(), R.drawable.product1, 100, 100);
                 break;
             case Constants.GOAL_NIKE_GIFT_CARD:
-                image = BitmapFactory.decodeResource(getResources(), R.drawable.kindle_goal);
+                image = Utils.decodeSampledBitmapFromResource(getResources(), R.drawable.product2, 100, 100);
                 break;
             case Constants.GOAL_FITBIT_ONE:
-                image = BitmapFactory.decodeResource(getResources(), R.drawable.kindle_goal);
+                image = Utils.decodeSampledBitmapFromResource(getResources(), R.drawable.product3, 100, 100);
                 break;
             case Constants.GOAL_MOVIE_TICKET:
-                image = BitmapFactory.decodeResource(getResources(), R.drawable.kindle_goal);
+                image = Utils.decodeSampledBitmapFromResource(getResources(), R.drawable.product4, 100, 100);
                 break;
             case Constants.GOAL_NIKE_SHOES:
-                image = BitmapFactory.decodeResource(getResources(), R.drawable.kindle_goal);
+                image = Utils.decodeSampledBitmapFromResource(getResources(), R.drawable.product5, 100, 100);
+                break;
+            case Constants.GOAL_CITIBANK_CARD:
+                image = Utils.decodeSampledBitmapFromResource(getResources(), R.drawable.product6, 100, 100);
                 break;
             default:
                 break;
@@ -202,6 +203,8 @@ public class GoalsFragment extends Fragment implements GoogleApiClient.Connectio
         tvGoalDaysLeft.setText(mGoalDaysLeft);
         tvGoalPoints.setText(mGoalPoints);
         tvGoalName.setText(mGoalName);
+        Bitmap goalImage = getGoalImageByGoalSelection();
+        ivGoalImage.setImageBitmap(goalImage);
 
         setUpWheelView();
     }

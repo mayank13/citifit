@@ -13,6 +13,7 @@ import com.cititmobilechallenge.citifit.R;
 import com.cititmobilechallenge.citifit.adaptors.RewardListViewAdaptor;
 import com.cititmobilechallenge.citifit.common.Constants;
 import com.cititmobilechallenge.citifit.common.FontHelper;
+import com.cititmobilechallenge.citifit.common.Utils;
 import com.cititmobilechallenge.citifit.modal.RewardHolder;
 
 import org.lucasr.twowayview.widget.TwoWayView;
@@ -63,66 +64,33 @@ public class RewardActivity extends AppCompatActivity implements RewardListViewA
 
         //Populating dummy data
 
-        Bitmap scaledImage1 = decodeSampledBitmapFromResource(getResources(), R.drawable.goal1, 400, 400);
+        Bitmap scaledImage1 = Utils.decodeSampledBitmapFromResource(getResources(), R.drawable.goal1, 400, 400);
         RewardHolder reward1 = new RewardHolder("Kindle Paperwhite", "4020", "5630", "30", scaledImage1);
         mRewardList.add(reward1);
 
-        Bitmap scaledImage2 = decodeSampledBitmapFromResource(getResources(), R.drawable.goal2, 400, 400);
+        Bitmap scaledImage2 = Utils.decodeSampledBitmapFromResource(getResources(), R.drawable.goal2, 400, 400);
         RewardHolder reward2 = new RewardHolder("Nike Gift Card", "700", "1400", "20", scaledImage2);
         mRewardList.add(reward2);
 
-        Bitmap scaledImage3 = decodeSampledBitmapFromResource(getResources(), R.drawable.goal3, 400, 400);
+        Bitmap scaledImage3 = Utils.decodeSampledBitmapFromResource(getResources(), R.drawable.goal3, 400, 400);
         RewardHolder reward3 = new RewardHolder("Fitbit One", "6990", "2796", "14", scaledImage3);
         mRewardList.add(reward3);
 
-        Bitmap scaledImage4 = decodeSampledBitmapFromResource(getResources(), R.drawable.goal4, 400, 400);
+        Bitmap scaledImage4 = Utils.decodeSampledBitmapFromResource(getResources(), R.drawable.goal4, 400, 400);
         RewardHolder reward4 = new RewardHolder("Nike Running Shoes", "2200", "4400", "20", scaledImage4);
         mRewardList.add(reward4);
 
-        Bitmap scaledImage5 = decodeSampledBitmapFromResource(getResources(), R.drawable.goal5, 400, 400);
-        RewardHolder reward5 = new RewardHolder("2 Movie Tickets", "500", "900", "7", scaledImage5);
+        Bitmap scaledImage5 = Utils.decodeSampledBitmapFromResource(getResources(), R.drawable.goal5, 400, 400);
+        RewardHolder reward5 = new RewardHolder("2 Movie Tickets", "0", "900", "7", scaledImage5);
         mRewardList.add(reward5);
 
+        Bitmap scaledImage6 = Utils.decodeSampledBitmapFromResource(getResources(), R.drawable.goal6, 400, 400);
+        RewardHolder reward6 = new RewardHolder("Citi Bank Reward", "0", "1400", "14", scaledImage6);
+        mRewardList.add(reward6);
+
     }
 
-    public static Bitmap decodeSampledBitmapFromResource(Resources res, int resId,
-                                                         int reqWidth, int reqHeight) {
-
-        // First decode with inJustDecodeBounds=true to check dimensions
-        final BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inJustDecodeBounds = true;
-        BitmapFactory.decodeResource(res, resId, options);
-
-        // Calculate inSampleSize
-        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
-
-        // Decode bitmap with inSampleSize set
-        options.inJustDecodeBounds = false;
-        return BitmapFactory.decodeResource(res, resId, options);
-    }
-
-    public static int calculateInSampleSize(
-            BitmapFactory.Options options, int reqWidth, int reqHeight) {
-        // Raw height and width of image
-        final int height = options.outHeight;
-        final int width = options.outWidth;
-        int inSampleSize = 1;
-
-        if (height > reqHeight || width > reqWidth) {
-
-            final int halfHeight = height / 2;
-            final int halfWidth = width / 2;
-
-            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
-            // height and width larger than the requested height and width.
-            while ((halfHeight / inSampleSize) > reqHeight
-                    && (halfWidth / inSampleSize) > reqWidth) {
-                inSampleSize *= 2;
-            }
-        }
-        return inSampleSize;
-    }
-
+   
     @Override
     public void onItemClick(int position) {
         Intent intent = new Intent(this, ChosenGoalActivity.class);

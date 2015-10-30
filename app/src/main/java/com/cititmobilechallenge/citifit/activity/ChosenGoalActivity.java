@@ -7,13 +7,17 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.cititmobilechallenge.citifit.R;
 import com.cititmobilechallenge.citifit.common.Constants;
+import com.cititmobilechallenge.citifit.common.FontHelper;
 
 public class ChosenGoalActivity extends AppCompatActivity {
 
-    private ImageView mGoalImageView = null;
+    private ImageView ivGoalImage = null;
+    private TextView tvGoalName = null;
+    private TextView tvGoalDays = null;
 
     //TODO - Cleaning to be done once API's are ready
 
@@ -30,6 +34,7 @@ public class ChosenGoalActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chosen_goal);
 
+        FontHelper.applyFont(this, findViewById(R.id.chosen_goal_container));
         setFinishOnTouchOutside(true);
 
         Intent intent = getIntent();
@@ -43,9 +48,13 @@ public class ChosenGoalActivity extends AppCompatActivity {
 
         Bitmap bitmap = getGoalImageFromPosition();
 
-        mGoalImageView = (ImageView) findViewById(R.id.chosen_goal_image);
+        ivGoalImage = (ImageView) findViewById(R.id.chosen_goal_image);
+        tvGoalDays = (TextView) findViewById(R.id.text_goal_days);
+        tvGoalName = (TextView) findViewById(R.id.text_goal_name);
 
-        mGoalImageView.setImageBitmap(bitmap);
+        ivGoalImage.setImageBitmap(bitmap);
+        tvGoalDays.setText(String.format(getString(R.string.goal_days), mGoalDaysLeft));
+        tvGoalName.setText(String.format(getString(R.string.goal_name), mGoalName));
 
     }
 
@@ -55,19 +64,22 @@ public class ChosenGoalActivity extends AppCompatActivity {
         Bitmap goalImage = null;
         switch (mGoalToSet) {
             case Constants.GOAL_KINDLE:
-                goalImage = BitmapFactory.decodeResource(getResources(), R.drawable.goal1);
+                goalImage = BitmapFactory.decodeResource(getResources(), R.drawable.product1);
                 break;
             case Constants.GOAL_NIKE_GIFT_CARD:
-                goalImage = BitmapFactory.decodeResource(getResources(), R.drawable.goal2);
+                goalImage = BitmapFactory.decodeResource(getResources(), R.drawable.product2);
                 break;
             case Constants.GOAL_FITBIT_ONE:
-                goalImage = BitmapFactory.decodeResource(getResources(), R.drawable.goal3);
+                goalImage = BitmapFactory.decodeResource(getResources(), R.drawable.product3);
                 break;
             case Constants.GOAL_NIKE_SHOES:
-                goalImage = BitmapFactory.decodeResource(getResources(), R.drawable.goal4);
+                goalImage = BitmapFactory.decodeResource(getResources(), R.drawable.product4);
                 break;
             case Constants.GOAL_MOVIE_TICKET:
-                goalImage = BitmapFactory.decodeResource(getResources(), R.drawable.goal5);
+                goalImage = BitmapFactory.decodeResource(getResources(), R.drawable.product5);
+                break;
+            case Constants.GOAL_CITIBANK_CARD:
+                goalImage = BitmapFactory.decodeResource(getResources(), R.drawable.product6);
                 break;
             default:
                 break;
