@@ -99,7 +99,7 @@ public class TasksFragment extends Fragment implements Animation.AnimationListen
     }
 
     private void setView() {
-        if (mBundle != null) {
+        if (mTask != null && !mTask.isEmpty()) {
             ivBanner.setImageBitmap(getBannerByTask());
             ivTaskIcon.setImageBitmap(getIconByTask());
             tvTask.setText(mTask);
@@ -110,7 +110,7 @@ public class TasksFragment extends Fragment implements Animation.AnimationListen
 
     private Bitmap getBannerByTask() {
         Bitmap bannerImage = null;
-        if (mBundle != null) {
+        if (mTask != null && !mTask.isEmpty()) {
             switch (mTask) {
                 case "Run":
                     bannerImage = BitmapFactory.decodeResource(getResources(), R.drawable.run_banner);
@@ -131,7 +131,7 @@ public class TasksFragment extends Fragment implements Animation.AnimationListen
 
     private Bitmap getIconByTask() {
         Bitmap taskIcon = null;
-        if (mBundle != null) {
+        if (mTask != null && !mTask.isEmpty()) {
             switch (mTask) {
                 case "Run":
                     taskIcon = BitmapFactory.decodeResource(getResources(), R.drawable.run_icon);
