@@ -99,8 +99,6 @@ public class CustomPushReceiver extends ParsePushBroadcastReceiver {
 
         notificationUtils = new NotificationUtils(context);
 
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
         notificationUtils.showNotificationMessage(intent);
     }
 }

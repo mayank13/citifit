@@ -52,7 +52,6 @@ public class NotificationUtils {
         if (isAppIsInBackground(mContext)) {
 
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
             intent.putExtra(Constants.NOTIFICATION_TASK, task);
