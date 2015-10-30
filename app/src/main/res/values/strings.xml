@@ -86,5 +86,7 @@
     <string name="ok">OK</string>
 
     <string name="yes_begin_now">Yes, Begin Now!</string>
+    <string name="goal_days">%s days</string>
+    <string name="goal_name">goal to get you %s</string>
 
 </resources>

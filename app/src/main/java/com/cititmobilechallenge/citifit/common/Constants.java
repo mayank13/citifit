@@ -16,5 +16,6 @@ public class Constants {
     public static final int GOAL_FITBIT_ONE = 2;
     public static final int GOAL_NIKE_SHOES = 3;
     public static final int GOAL_MOVIE_TICKET = 4;
+    public static final int GOAL_CITIBANK_CARD = 5;
 }
 
