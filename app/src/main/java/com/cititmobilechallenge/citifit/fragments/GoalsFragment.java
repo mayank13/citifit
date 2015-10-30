@@ -183,10 +183,10 @@ public class GoalsFragment extends Fragment implements GoogleApiClient.Connectio
             case Constants.GOAL_FITBIT_ONE:
                 image = Utils.decodeSampledBitmapFromResource(getResources(), R.drawable.product3, 100, 100);
                 break;
-            case Constants.GOAL_MOVIE_TICKET:
+            case Constants.GOAL_NIKE_SHOES:
                 image = Utils.decodeSampledBitmapFromResource(getResources(), R.drawable.product4, 100, 100);
                 break;
-            case Constants.GOAL_NIKE_SHOES:
+            case Constants.GOAL_MOVIE_TICKET:
                 image = Utils.decodeSampledBitmapFromResource(getResources(), R.drawable.product5, 100, 100);
                 break;
             case Constants.GOAL_CITIBANK_CARD:
