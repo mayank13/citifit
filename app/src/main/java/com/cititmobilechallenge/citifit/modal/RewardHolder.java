@@ -10,14 +10,14 @@ public class RewardHolder {
     private String name;
     private String price;
     private String pointsNeeded;
-    private String goalsCount;
+    private String days;
     private Bitmap image;
 
-    public RewardHolder(String name, String price, String pointsNeeded, String goalsCount, Bitmap image) {
+    public RewardHolder(String name, String price, String pointsNeeded, String days, Bitmap image) {
         this.name = name;
         this.price = price;
         this.pointsNeeded = pointsNeeded;
-        this.goalsCount = goalsCount;
+        this.days = days;
         this.image = image;
     }
 
@@ -33,8 +33,8 @@ public class RewardHolder {
         return pointsNeeded;
     }
 
-    public String getGoalsCount() {
-        return goalsCount;
+    public String getDays() {
+        return days;
     }
 
     public Bitmap getImage() {

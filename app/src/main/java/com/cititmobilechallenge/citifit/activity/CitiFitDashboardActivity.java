@@ -1,5 +1,6 @@
 package com.cititmobilechallenge.citifit.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
@@ -9,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 
 import com.cititmobilechallenge.citifit.R;
 import com.cititmobilechallenge.citifit.adaptors.PagerAdapter;
+import com.cititmobilechallenge.citifit.common.Constants;
 
 public class CitiFitDashboardActivity extends AppCompatActivity {
 
@@ -26,6 +28,14 @@ public class CitiFitDashboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_citifit_dashboard);
 
+        Intent intent = getIntent();
+
+        int goalToSet = intent.getIntExtra(Constants.GOAL_SELECTED_POSITION_TAG, -1);
+        String goalPrice = intent.getStringExtra(Constants.GOAL_PRICE);
+        String goalPoints = intent.getStringExtra(Constants.GOAL_POINTS);
+        String goalDays = intent.getStringExtra(Constants.GOAL_DAYS_LEFT);
+        String goalName = intent.getStringExtra(Constants.GOAL_NAME);
+
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         mToolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.black));
@@ -42,7 +52,7 @@ public class CitiFitDashboardActivity extends AppCompatActivity {
 
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
 
-        mAdapter = new PagerAdapter(getSupportFragmentManager(), NO_OF_TABS);
+        mAdapter = new PagerAdapter(getSupportFragmentManager(), NO_OF_TABS, goalToSet, goalPrice, goalPoints, goalDays, goalName);
 
         mViewPager.setAdapter(mAdapter);
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));

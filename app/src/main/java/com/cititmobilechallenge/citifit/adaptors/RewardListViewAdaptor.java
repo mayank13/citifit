@@ -24,9 +24,10 @@ public class RewardListViewAdaptor extends RecyclerView.Adapter<RewardListViewAd
 
     private Context mContext = null;
 
-    public RewardListViewAdaptor(ArrayList<RewardHolder> rewardList, Context context) {
+    public RewardListViewAdaptor(ArrayList<RewardHolder> rewardList, Context context, RewardListItemClickListener listener) {
         mRewardList = rewardList;
         mContext = context;
+        mClickListener = listener;
     }
 
     @Override
@@ -64,15 +65,16 @@ public class RewardListViewAdaptor extends RecyclerView.Adapter<RewardListViewAd
             price = (TextView) itemView.findViewById(R.id.textPrice);
             points = (TextView) itemView.findViewById(R.id.textPoints);
             goals = (TextView) itemView.findViewById(R.id.textGoals);
+            itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
-            mClickListener.onItemClick(getAdapterPosition(), v);
+            mClickListener.onItemClick(getAdapterPosition());
         }
     }
 
     public interface RewardListItemClickListener {
-        void onItemClick(int position, View view);
+        void onItemClick(int position);
     }
 }

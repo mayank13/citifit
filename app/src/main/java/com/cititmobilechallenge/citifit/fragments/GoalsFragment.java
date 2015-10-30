@@ -2,6 +2,8 @@ package com.cititmobilechallenge.citifit.fragments;
 
 import android.content.Intent;
 import android.content.IntentSender;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,8 +11,11 @@ import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.cititmobilechallenge.citifit.R;
+import com.cititmobilechallenge.citifit.common.Constants;
 import com.cititmobilechallenge.citifit.common.FontHelper;
 import com.cititmobilechallenge.citifit.logger.Log;
 import com.dlazaro66.wheelindicatorview.WheelIndicatorItem;
@@ -50,6 +55,11 @@ public class GoalsFragment extends Fragment implements GoogleApiClient.Connectio
     private WheelIndicatorView mWheelIndicatorView = null;
     private LineChart mChart = null;
 
+    private ImageView ivGoalImage = null;
+    private TextView tvGoalPrice = null;
+    private TextView tvGoalPoints = null;
+    private TextView tvGoalDaysLeft = null;
+    private TextView tvGoalName = null;
     /**
      * Track whether an authorization activity is stacking over the current activity, i.e. when
      * a known auth error is being resolved, such as showing the account chooser or presenting a
@@ -69,12 +79,17 @@ public class GoalsFragment extends Fragment implements GoogleApiClient.Connectio
     private ArrayList<Entry> mYVals = null; // StepCount
     private int mCounter = 0; // Counter for no of entries
 
+    private int mGoalSelectedPos = -1;
+    private String mGoalPrice;
+    private String mGoalPoints;
+    private String mGoalDaysLeft;
+    private String mGoalName;
 
     // TODO - UIs to be populated dynamically, once APIs are made
 
     public static GoalsFragment getInstance() {
-        GoalsFragment goalsFragment = new GoalsFragment();
-        return goalsFragment;
+
+        return new GoalsFragment();
     }
 
 
@@ -85,6 +100,15 @@ public class GoalsFragment extends Fragment implements GoogleApiClient.Connectio
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Bundle bundle = getArguments();
+
+        mGoalSelectedPos = bundle.getInt(Constants.GOAL_SELECTED_POSITION_TAG);
+        mGoalPrice = bundle.getString(Constants.GOAL_PRICE);
+        mGoalDaysLeft = bundle.getString(Constants.GOAL_DAYS_LEFT);
+        mGoalPoints = bundle.getString(Constants.GOAL_POINTS);
+        mGoalName = bundle.getString(Constants.GOAL_NAME);
+
         //Initialise the GoogleApiClient
         mClient = new GoogleApiClient.Builder(getActivity())
                 .addApi(Fitness.HISTORY_API)
@@ -103,8 +127,6 @@ public class GoalsFragment extends Fragment implements GoogleApiClient.Connectio
         initView(view);
 
         FontHelper.applyFont(getActivity(), view.findViewById(R.id.rl_goal_container));
-
-        setUpWheelView();
 
         // no description text
         mChart.setDescription("");
@@ -130,6 +152,10 @@ public class GoalsFragment extends Fragment implements GoogleApiClient.Connectio
 
         mYVals = new ArrayList<>(7);
 
+        Bitmap goalImage = getGoalImageByGoalSelection();
+
+        setGoalView();
+
         return view;
     }
 
@@ -139,8 +165,46 @@ public class GoalsFragment extends Fragment implements GoogleApiClient.Connectio
         mWheelIndicatorView = (WheelIndicatorView) view.findViewById(R.id.wheel_indicator_view);
 
         mChart = (LineChart) view.findViewById(R.id.chart);
+
+        ivGoalImage = (ImageView) view.findViewById(R.id.image_reward);
+        tvGoalPrice = (TextView) view.findViewById(R.id.text_mrp_goal);
+        tvGoalPoints = (TextView) view.findViewById(R.id.text_citipoints_goal);
+        tvGoalDaysLeft = (TextView) view.findViewById(R.id.text_days_left);
+        tvGoalName = (TextView) view.findViewById(R.id.text_reward_name);
     }
 
+    private Bitmap getGoalImageByGoalSelection() {
+        Bitmap image = null;
+        switch (mGoalSelectedPos) {
+            case Constants.GOAL_KINDLE:
+                image = BitmapFactory.decodeResource(getResources(), R.drawable.kindle_goal);
+                break;
+            case Constants.GOAL_NIKE_GIFT_CARD:
+                image = BitmapFactory.decodeResource(getResources(), R.drawable.kindle_goal);
+                break;
+            case Constants.GOAL_FITBIT_ONE:
+                image = BitmapFactory.decodeResource(getResources(), R.drawable.kindle_goal);
+                break;
+            case Constants.GOAL_MOVIE_TICKET:
+                image = BitmapFactory.decodeResource(getResources(), R.drawable.kindle_goal);
+                break;
+            case Constants.GOAL_NIKE_SHOES:
+                image = BitmapFactory.decodeResource(getResources(), R.drawable.kindle_goal);
+                break;
+            default:
+                break;
+        }
+        return image;
+    }
+
+    private void setGoalView() {
+        tvGoalPrice.setText(mGoalPrice);
+        tvGoalDaysLeft.setText(mGoalDaysLeft);
+        tvGoalPoints.setText(mGoalPoints);
+        tvGoalName.setText(mGoalName);
+
+        setUpWheelView();
+    }
 
     private void setUpWheelView() {
         //TODO - The percentage to be calculated based on data being processed and fetched dynamically

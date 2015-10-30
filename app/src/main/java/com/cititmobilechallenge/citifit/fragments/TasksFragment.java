@@ -23,6 +23,10 @@ public class TasksFragment extends Fragment implements Animation.AnimationListen
         // Required empty public constructor
     }
 
+    public static TasksFragment getInstance(){
+        return new TasksFragment();
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -1,16 +1,14 @@
 package com.cititmobilechallenge.citifit.adaptors;
 
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.cititmobilechallenge.citifit.common.Constants;
 import com.cititmobilechallenge.citifit.fragments.GoalsFragment;
 import com.cititmobilechallenge.citifit.fragments.ProfileFragment;
 import com.cititmobilechallenge.citifit.fragments.TasksFragment;
-import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.data.LineData;
 
 /**
  * Created by ashwiask on 10/28/2015.
@@ -18,29 +16,42 @@ import com.github.mikephil.charting.data.LineData;
 public class PagerAdapter extends FragmentStatePagerAdapter {
 
     private int mNoOfTabs;
+    private int mGoalSelectedPostion;
+    private String mGoalPrice;
+    private String mGoalPoints;
+    private String mGoalDaysLeft;
+    private String mGoalName;
 
-    public PagerAdapter(FragmentManager fm, int noOfTabs) {
+    public PagerAdapter(FragmentManager fm, int noOfTabs, int goalSelectedPos, String goalPrice, String goalPoints, String goalDays, String goalName) {
         super(fm);
         mNoOfTabs = noOfTabs;
+        mGoalSelectedPostion = goalSelectedPos;
+        mGoalPrice = goalPrice;
+        mGoalDaysLeft = goalDays;
+        mGoalPoints = goalPoints;
+        mGoalName = goalName;
     }
 
     @Override
     public Fragment getItem(int position) {
 
-        Fragment fragment;
+        Fragment fragment = null;
         switch (position) {
             case 0:
-                TasksFragment tasksFragment = new TasksFragment();
-                fragment = tasksFragment;
+                fragment = TasksFragment.getInstance();
                 break;
             case 1:
-                GoalsFragment goalsFragment = GoalsFragment.getInstance();
-
-                fragment = goalsFragment;
+                fragment = GoalsFragment.getInstance();
+                Bundle bundle = new Bundle();
+                bundle.putInt(Constants.GOAL_SELECTED_POSITION_TAG, mGoalSelectedPostion);
+                bundle.putString(Constants.GOAL_PRICE, mGoalPrice);
+                bundle.putString(Constants.GOAL_POINTS, mGoalPoints);
+                bundle.putString(Constants.GOAL_DAYS_LEFT, mGoalDaysLeft);
+                bundle.putString(Constants.GOAL_NAME, mGoalName);
+                fragment.setArguments(bundle);
                 break;
             case 2:
-                ProfileFragment profileFragment = new ProfileFragment();
-                fragment = profileFragment;
+                fragment = ProfileFragment.getInstance();
                 break;
             default:
                 return null;
