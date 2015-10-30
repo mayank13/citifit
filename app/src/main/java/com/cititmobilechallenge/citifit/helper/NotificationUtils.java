@@ -139,6 +139,6 @@ public class NotificationUtils {
         }
 
         //return isInBackground;
-        return isInBackground;
+        return true;
     }
 }
