@@ -199,12 +199,14 @@ public class GoalsFragment extends Fragment implements GoogleApiClient.Connectio
     }
 
     private void setGoalView() {
-        tvGoalPrice.setText(mGoalPrice);
-        tvGoalDaysLeft.setText(mGoalDaysLeft);
-        tvGoalPoints.setText(mGoalPoints);
-        tvGoalName.setText(mGoalName);
-        Bitmap goalImage = getGoalImageByGoalSelection();
-        ivGoalImage.setImageBitmap(goalImage);
+        if (mGoalPrice != null && !mGoalPrice.isEmpty()) {
+            tvGoalPrice.setText(mGoalPrice);
+            tvGoalDaysLeft.setText(mGoalDaysLeft);
+            tvGoalPoints.setText(mGoalPoints);
+            tvGoalName.setText(mGoalName);
+            Bitmap goalImage = getGoalImageByGoalSelection();
+            ivGoalImage.setImageBitmap(goalImage);
+        }
 
         setUpWheelView();
     }

@@ -53,6 +53,7 @@ public class NotificationUtils {
 
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
             intent.putExtra(Constants.NOTIFICATION_TASK, task);
             intent.putExtra(Constants.NOTIFICATION_GOAL_UNIT, goalUnit);
