@@ -72,10 +72,17 @@
 
     <string name="home">Home</string>
 
+    <!--Profile Fragment Tags-->
     <string name="redeem">Redeem</string>
     <string name="track">Track</string>
     <string name="profile_name">Profile Name</string>
     <string name="profile_citipoints">%s Citi Points</string>
     <string name="profile_image">Profile Image</string>
+
+    <!--Success Dialog Tags-->
+    <string name="congrats">Congrats!</string>
+    <string name="closer_to_goal">You are 200 points closer to goal!</string>
+    <string name="proud_of_you">We are proud of you.</string>
+    <string name="ok">OK</string>
 
 </resources>
