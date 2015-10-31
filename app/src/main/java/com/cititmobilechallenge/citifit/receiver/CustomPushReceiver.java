@@ -71,7 +71,7 @@ public class CustomPushReceiver extends ParsePushBroadcastReceiver {
             String message_type = data.getString("message_type");
 
             String message = json.getString("message");
-            String title = json.getString("title");
+            String title = json.getString("message_title");
 
             if (!isBackground) {
                 Intent resultIntent = new Intent(context, CitiFitDashboardActivity.class);
