@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,9 @@ public class TasksFragment extends Fragment implements Animation.AnimationListen
     private TextView tvPoints = null;
     private TextView tvTaskValue = null;
 
+    private ImageView ivTaskStatusImage = null;
+    private TextView tvTaskStatus = null;
+
     TextView taskStart = null;
     TextView trackingAnimatedText = null;
     Animation animBlink = null;
@@ -34,8 +38,7 @@ public class TasksFragment extends Fragment implements Animation.AnimationListen
     private String mGoalUnit;
     private String mGoalValue;
     private String mPoints;
-
-    private Bundle mBundle = null;
+    private String mMessageType;
 
     public TasksFragment() {
         // Required empty public constructor
@@ -49,12 +52,14 @@ public class TasksFragment extends Fragment implements Animation.AnimationListen
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mBundle = getArguments();
+        setRetainInstance(true);
+        Bundle bundle = getArguments();
 
-        mTask = mBundle.getString(Constants.NOTIFICATION_TASK);
-        mGoalUnit = mBundle.getString(Constants.NOTIFICATION_GOAL_UNIT);
-        mGoalValue = mBundle.getString(Constants.NOTIFICATION_GOAL_VALUE);
-        mPoints = mBundle.getString(Constants.NOTIFICATION_POINTS);
+        mTask = bundle.getString(Constants.NOTIFICATION_TASK);
+        mGoalUnit = bundle.getString(Constants.NOTIFICATION_GOAL_UNIT);
+        mGoalValue = bundle.getString(Constants.NOTIFICATION_GOAL_VALUE);
+        mPoints = bundle.getString(Constants.NOTIFICATION_POINTS);
+        mMessageType = bundle.getString(Constants.NOTIFICATION_MESSAGE_TYPE);
 
     }
 
@@ -72,7 +77,8 @@ public class TasksFragment extends Fragment implements Animation.AnimationListen
         tvTask = (TextView) view.findViewById(R.id.task_name);
         tvPoints = (TextView) view.findViewById(R.id.text_points);
         tvTaskValue = (TextView) view.findViewById(R.id.text_task_value);
-
+        ivTaskStatusImage = (ImageView) view.findViewById(R.id.taskStatusImage);
+        tvTaskStatus = (TextView) view.findViewById(R.id.text_status);
 
         //Attaching the animation the textView
         trackingAnimatedText = (TextView) view.findViewById(R.id.trackingAnimatedText);
@@ -105,7 +111,12 @@ public class TasksFragment extends Fragment implements Animation.AnimationListen
             tvTask.setText(mTask);
             tvPoints.setText(mPoints + " Citi Points");
             tvTaskValue.setText(mGoalValue + " " + mGoalUnit);
+
         }
+        if (mMessageType != null && mMessageType.equalsIgnoreCase("message")) {
+            updateTaskStatus("Completed");
+        }
+
     }
 
     private Bitmap getBannerByTask() {
@@ -163,5 +174,16 @@ public class TasksFragment extends Fragment implements Animation.AnimationListen
     @Override
     public void onAnimationRepeat(Animation animation) {
 
+    }
+
+    public void updateTaskStatus(String status) {
+        tvTaskStatus.setText(status);
+        if (status.equalsIgnoreCase("Completed")) {
+            tvTaskStatus.setTextColor(ContextCompat.getColor(getActivity(), R.color.green));
+            ivTaskStatusImage.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.task_complete));
+        } else {
+            tvTaskStatus.setTextColor(ContextCompat.getColor(getActivity(), R.color.black));
+            ivTaskStatusImage.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.task_incomplete));
+        }
     }
 }

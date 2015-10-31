@@ -3,7 +3,7 @@ package com.cititmobilechallenge.citifit.adaptors;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.FragmentPagerAdapter;
 
 import com.cititmobilechallenge.citifit.common.Constants;
 import com.cititmobilechallenge.citifit.fragments.GoalsFragment;
@@ -13,7 +13,11 @@ import com.cititmobilechallenge.citifit.fragments.TasksFragment;
 /**
  * Created by ashwiask on 10/28/2015.
  */
-public class PagerAdapter extends FragmentStatePagerAdapter {
+public class PagerAdapter extends FragmentPagerAdapter {
+
+    public static final int TASK_FRAGMENT = 0;
+    public static final int GOAL_FRAGMENT = 1;
+    public static final int PROFILE_FRAGMENT = 2;
 
     private int mNoOfTabs;
     private int mGoalSelectedPostion;
@@ -27,8 +31,9 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
     private String mGoalUnit;
     private String mGoalValue;
     private String mPoints;
+    private String mMessageType;
 
-    public PagerAdapter(FragmentManager fm, int noOfTabs, int goalSelectedPos, String goalPrice, String goalPoints, String goalDays, String goalName, String task, String goalUnit, String goalValue, String points) {
+    public PagerAdapter(FragmentManager fm, int noOfTabs, int goalSelectedPos, String goalPrice, String goalPoints, String goalDays, String goalName, String task, String goalUnit, String goalValue, String points, String messageType) {
         super(fm);
         mNoOfTabs = noOfTabs;
         mGoalSelectedPostion = goalSelectedPos;
@@ -40,6 +45,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
         mGoalUnit = goalUnit;
         mGoalValue = goalValue;
         mPoints = points;
+        mMessageType = messageType;
     }
 
     @Override
@@ -47,16 +53,17 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
 
         Fragment fragment = null;
         switch (position) {
-            case 0:
+            case TASK_FRAGMENT:
                 fragment = TasksFragment.getInstance();
                 Bundle taskBundle = new Bundle();
                 taskBundle.putString(Constants.NOTIFICATION_TASK, mTask);
                 taskBundle.putString(Constants.NOTIFICATION_GOAL_UNIT, mGoalUnit);
                 taskBundle.putString(Constants.NOTIFICATION_GOAL_VALUE, mGoalValue);
                 taskBundle.putString(Constants.NOTIFICATION_POINTS, mPoints);
+                taskBundle.putString(Constants.NOTIFICATION_MESSAGE_TYPE, mMessageType);
                 fragment.setArguments(taskBundle);
                 break;
-            case 1:
+            case GOAL_FRAGMENT:
                 fragment = GoalsFragment.getInstance();
                 Bundle goalsBundle = new Bundle();
                 goalsBundle.putInt(Constants.GOAL_SELECTED_POSITION_TAG, mGoalSelectedPostion);
@@ -66,7 +73,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
                 goalsBundle.putString(Constants.GOAL_NAME, mGoalName);
                 fragment.setArguments(goalsBundle);
                 break;
-            case 2:
+            case PROFILE_FRAGMENT:
                 fragment = ProfileFragment.getInstance();
                 break;
             default:

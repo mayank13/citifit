@@ -44,51 +44,50 @@ public class NotificationUtils {
         String goalUnit = intent.getStringExtra(Constants.NOTIFICATION_GOAL_UNIT);
         String goalValue = intent.getStringExtra(Constants.NOTIFICATION_GOAL_VALUE);
         String title = intent.getStringExtra(Constants.NOTIFICATION_TITLE);
+        String message_type = intent.getStringExtra(Constants.NOTIFICATION_MESSAGE_TYPE);
 
         // Check for empty push message
         if (TextUtils.isEmpty(message))
             return;
 
-        if (isAppIsInBackground(mContext)) {
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        int smallIcon = R.mipmap.ic_launcher;
 
-            intent.putExtra(Constants.NOTIFICATION_TASK, task);
-            intent.putExtra(Constants.NOTIFICATION_GOAL_UNIT, goalUnit);
-            intent.putExtra(Constants.NOTIFICATION_GOAL_VALUE, goalValue);
-            intent.putExtra(Constants.NOTIFICATION_POINTS, points);
-            // notification icon
-            int icon = R.mipmap.ic_launcher;
+        intent.putExtra(Constants.NOTIFICATION_TASK, task);
+        intent.putExtra(Constants.NOTIFICATION_GOAL_UNIT, goalUnit);
+        intent.putExtra(Constants.NOTIFICATION_GOAL_VALUE, goalValue);
+        intent.putExtra(Constants.NOTIFICATION_POINTS, points);
 
-            int smallIcon = getTaskIconByType(task);
-
-            int mNotificationId = AppConfig.NOTIFICATION_ID;
-
-            PendingIntent resultPendingIntent =
-                    PendingIntent.getActivity(mContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT
-                            | PendingIntent.FLAG_ONE_SHOT);
-
-            NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
-
-            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(mContext);
-            Notification notification = mBuilder.setSmallIcon(smallIcon).setTicker(title).setWhen(0)
-                    .setAutoCancel(true)
-                    .setContentTitle(title)
-                    .setContentText(message)
-                    .setStyle(inboxStyle)
-                    .setContentIntent(resultPendingIntent)
-                    .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
-                    .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
-                    .build();
-
-            NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
-            notificationManager.notify(mNotificationId, notification);
-        } else {
-
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            mContext.startActivity(intent);
+        if (message_type.equalsIgnoreCase("Data")) {
+            smallIcon = getTaskIconByType(task);
         }
+        // notification icon
+        int icon = R.mipmap.ic_launcher;
+
+        int mNotificationId = AppConfig.NOTIFICATION_ID;
+
+        PendingIntent resultPendingIntent =
+                PendingIntent.getActivity(mContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT
+                        | PendingIntent.FLAG_ONE_SHOT);
+
+        NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
+
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(mContext);
+        Notification notification = mBuilder.setSmallIcon(smallIcon).setTicker(title).setWhen(0)
+                .setAutoCancel(true)
+                .setContentTitle(title)
+                .setContentText(message)
+                .setStyle(inboxStyle)
+                .setContentIntent(resultPendingIntent)
+                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+                .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
+                .build();
+
+        NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(mNotificationId, notification);
+
     }
 
     private int getTaskIconByType(String type) {

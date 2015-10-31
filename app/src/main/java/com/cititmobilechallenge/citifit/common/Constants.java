@@ -26,5 +26,6 @@ public class Constants {
     public static final String NOTIFICATION_GOAL_VALUE = "NOTIFICATION_GOAL_VALUE";
     public static final String NOTIFICATION_POINTS = "NOTIFICATION_POINTS";
     public static final String NOTIFICATION_TITLE = "NOTIFICATION_TITLE";
+    public static final String NOTIFICATION_MESSAGE_TYPE = "NOTIFICATION_MESSAGE_TYPE";
 }
 

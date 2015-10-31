@@ -44,7 +44,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="40dp"
         android:tag="@string/proud_of_you"
-        android:text="@string/closer_to_goal"
+        android:text="@string/proud_of_you"
         android:textColor="@color/black"
         android:textSize="14sp" />
 

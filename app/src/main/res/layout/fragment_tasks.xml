@@ -56,6 +56,34 @@
                 android:textSize="26dp" />
 
             <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/task_name"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="20dp">
+
+                <ImageView
+                    android:id="@+id/taskStatusImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="8dp"
+                    android:src="@drawable/task_incomplete"
+                    android:layout_gravity="center"/>
+
+                <TextView
+                    android:id="@+id/text_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:tag="@string/title"
+                    android:text="Incompleted"
+                    android:gravity="center"
+                    android:textColor="@color/dark_grey"
+                    android:textSize="16dp" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/task_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -79,6 +107,7 @@
                     android:text="3 kms"
                     android:textColor="@color/dark_grey"
                     android:textSize="16dp" />
+
 
             </LinearLayout>
 

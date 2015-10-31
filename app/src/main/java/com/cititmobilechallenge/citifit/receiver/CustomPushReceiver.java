@@ -63,22 +63,26 @@ public class CustomPushReceiver extends ParsePushBroadcastReceiver {
         try {
             boolean isBackground = json.getBoolean("is_background");
             JSONObject data = json.getJSONObject("data");
-            String type = data.getString("type");
-            String message = data.getString("message");
+
+            String task = data.getString("task");
             String goal_unit = data.getString("goal_unit");
             String goal_value = data.getString("goal_value");
             String points = data.getString("points");
-            String title = data.getString("title");
+            String message_type = data.getString("message_type");
+
+            String message = json.getString("message");
+            String title = json.getString("title");
 
             if (!isBackground) {
                 Intent resultIntent = new Intent(context, CitiFitDashboardActivity.class);
 
                 resultIntent.putExtra(Constants.NOTIFICATION_MESSAGE, message);
-                resultIntent.putExtra(Constants.NOTIFICATION_TASK, type);
+                resultIntent.putExtra(Constants.NOTIFICATION_TASK, task);
                 resultIntent.putExtra(Constants.NOTIFICATION_GOAL_UNIT, goal_unit);
                 resultIntent.putExtra(Constants.NOTIFICATION_GOAL_VALUE, goal_value);
                 resultIntent.putExtra(Constants.NOTIFICATION_POINTS, points);
                 resultIntent.putExtra(Constants.NOTIFICATION_TITLE, title);
+                resultIntent.putExtra(Constants.NOTIFICATION_MESSAGE_TYPE, message_type);
                 showNotificationMessage(context, resultIntent);
             }
 
