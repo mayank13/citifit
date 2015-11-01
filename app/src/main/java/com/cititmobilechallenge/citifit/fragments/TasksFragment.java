@@ -2,6 +2,7 @@ package com.cititmobilechallenge.citifit.fragments;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -29,8 +30,8 @@ public class TasksFragment extends Fragment implements Animation.AnimationListen
     private ImageView ivTaskStatusImage = null;
     private TextView tvTaskStatus = null;
 
-    TextView taskStart = null;
-    TextView trackingAnimatedText = null;
+    TextView tvTaskStart = null;
+    TextView tvTrackingAnimatedText = null;
     Animation animBlink = null;
 
     // From Notification
@@ -71,7 +72,7 @@ public class TasksFragment extends Fragment implements Animation.AnimationListen
 
         FontHelper.applyFont(getActivity(), view.findViewById(R.id.task_fragment_container));
 
-        taskStart = (TextView) view.findViewById(R.id.taskStart);
+        tvTaskStart = (TextView) view.findViewById(R.id.taskStart);
         ivBanner = (ImageView) view.findViewById(R.id.dailyTaskBanner);
         ivTaskIcon = (ImageView) view.findViewById(R.id.taskIcon);
         tvTask = (TextView) view.findViewById(R.id.task_name);
@@ -81,7 +82,7 @@ public class TasksFragment extends Fragment implements Animation.AnimationListen
         tvTaskStatus = (TextView) view.findViewById(R.id.text_status);
 
         //Attaching the animation the textView
-        trackingAnimatedText = (TextView) view.findViewById(R.id.trackingAnimatedText);
+        tvTrackingAnimatedText = (TextView) view.findViewById(R.id.trackingAnimatedText);
 
         // load the animation
         animBlink = AnimationUtils.loadAnimation(getActivity(),
@@ -90,12 +91,12 @@ public class TasksFragment extends Fragment implements Animation.AnimationListen
         // set animation listener
         animBlink.setAnimationListener(this);
 
-        taskStart.setOnClickListener(new View.OnClickListener() {
+        tvTaskStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                taskStart.setVisibility(View.INVISIBLE);
-                trackingAnimatedText.setVisibility(View.VISIBLE);
-                trackingAnimatedText.startAnimation(animBlink);
+                tvTaskStart.setVisibility(View.INVISIBLE);
+                tvTrackingAnimatedText.setVisibility(View.VISIBLE);
+                tvTrackingAnimatedText.startAnimation(animBlink);
             }
         });
 
@@ -181,6 +182,11 @@ public class TasksFragment extends Fragment implements Animation.AnimationListen
         if (status.equalsIgnoreCase("Completed")) {
             tvTaskStatus.setTextColor(ContextCompat.getColor(getActivity(), R.color.green));
             ivTaskStatusImage.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.task_complete));
+            tvTaskStart.setText("You won " + mPoints + " points. Sweet!");
+            tvTaskStart.setTextColor(ContextCompat.getColor(getActivity(), R.color.green));
+            Typeface typeface = Typeface.createFromAsset(getContext().getAssets(), FontHelper.FONT_PROXIMANOVA_BOLD);
+            tvTaskStart.setTypeface(typeface);
+            tvTaskStart.setClickable(false);
         } else {
             tvTaskStatus.setTextColor(ContextCompat.getColor(getActivity(), R.color.black));
             ivTaskStatusImage.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.task_incomplete));

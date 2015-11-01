@@ -67,18 +67,18 @@
                     android:id="@+id/taskStatusImage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="8dp"
-                    android:src="@drawable/task_incomplete"
-                    android:layout_gravity="center"/>
+                    android:src="@drawable/task_incomplete" />
 
                 <TextView
                     android:id="@+id/text_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:tag="@string/title"
                     android:text="Incompleted"
-                    android:gravity="center"
                     android:textColor="@color/dark_grey"
                     android:textSize="16dp" />
             </LinearLayout>
@@ -150,6 +150,7 @@
                 android:id="@+id/taskStart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
                 android:layout_below="@+id/tasksSummarySeparator"
                 android:layout_margin="16dp"
                 android:clickable="true"
