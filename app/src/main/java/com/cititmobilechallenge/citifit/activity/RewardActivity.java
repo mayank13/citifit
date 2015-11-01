@@ -2,9 +2,7 @@ package com.cititmobilechallenge.citifit.activity;
 
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -90,7 +88,7 @@ public class RewardActivity extends AppCompatActivity implements RewardListViewA
 
     }
 
-   
+
     @Override
     public void onItemClick(int position) {
         Intent intent = new Intent(this, ChosenGoalActivity.class);

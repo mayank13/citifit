@@ -23,14 +23,14 @@ public class LoginActivity extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login);
-        btnLogin =(Button)findViewById(R.id.btnLogin);
+        btnLogin = (Button) findViewById(R.id.btnLogin);
 
         FontHelper.applyFont(this, findViewById(R.id.rl_login_container));
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Intent i = new Intent(LoginActivity.this,RewardActivity.class);
+                Intent i = new Intent(LoginActivity.this, RewardActivity.class);
                 startActivity(i);
             }
         });

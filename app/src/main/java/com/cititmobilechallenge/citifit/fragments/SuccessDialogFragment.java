@@ -93,7 +93,7 @@ public class SuccessDialogFragment extends DialogFragment {
         }
     }
 
-    public interface ISuccessDialogFragmentListenr{
+    public interface ISuccessDialogFragmentListenr {
         void onClick();
     }
 }

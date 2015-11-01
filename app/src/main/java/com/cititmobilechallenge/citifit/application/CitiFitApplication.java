@@ -6,8 +6,6 @@ import com.cititmobilechallenge.citifit.helper.ParseUtils;
 import com.cititmobilechallenge.citifit.logger.Log;
 import com.cititmobilechallenge.citifit.logger.LogWrapper;
 import com.cititmobilechallenge.citifit.logger.MessageOnlyLogFilter;
-import com.parse.Parse;
-import com.parse.ParseInstallation;
 
 /**
  * Created by Mayank on 23-10-2015.

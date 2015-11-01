@@ -53,6 +53,7 @@ public class CitiFitDashboardActivity extends AppCompatActivity implements Succe
         setSupportActionBar(mToolbar);
         mToolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.black));
         mToolbar.setTitle(getString(R.string.home));
+        mToolbar.setLogo(R.drawable.nav_drawer);
 
         mTabLayout = (TabLayout) findViewById(R.id.tabs);
         mTabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(this, R.color.black));
