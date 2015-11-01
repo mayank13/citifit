@@ -53,7 +53,7 @@ public class NotificationUtils {
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
-        int smallIcon = R.mipmap.ic_launcher;
+        int smallIcon = R.drawable.points_big;
 
         intent.putExtra(Constants.NOTIFICATION_TASK, task);
         intent.putExtra(Constants.NOTIFICATION_GOAL_UNIT, goalUnit);

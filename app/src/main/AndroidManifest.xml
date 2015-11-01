@@ -79,6 +79,7 @@
 
         <activity
             android:name=".activity.ChosenGoalActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.CitiFit.Translucent"></activity>
     </application>
 
