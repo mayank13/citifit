@@ -81,6 +81,12 @@ public class ChosenGoalActivity extends AppCompatActivity {
             case Constants.GOAL_CITIBANK_CARD:
                 goalImage = BitmapFactory.decodeResource(getResources(), R.drawable.product6);
                 break;
+            case Constants.GOAL_PLATINUM_CARD:
+                goalImage = BitmapFactory.decodeResource(getResources(), R.drawable.product7);
+                break;
+            case Constants.GOAL_JACKS_PLACE:
+                goalImage = BitmapFactory.decodeResource(getResources(), R.drawable.product8);
+                break;
             default:
                 break;
         }

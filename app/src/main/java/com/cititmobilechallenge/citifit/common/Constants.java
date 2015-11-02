@@ -17,6 +17,9 @@ public class Constants {
     public static final int GOAL_NIKE_SHOES = 3;
     public static final int GOAL_MOVIE_TICKET = 4;
     public static final int GOAL_CITIBANK_CARD = 5;
+    public static final int GOAL_PLATINUM_CARD= 6;
+    public static final int GOAL_JACKS_PLACE = 7;
+
 
     // Notification Related Constants
 
