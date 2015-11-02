@@ -72,18 +72,19 @@ public class NotificationUtils {
                 PendingIntent.getActivity(mContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT
                         | PendingIntent.FLAG_ONE_SHOT);
 
-        NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
+        // shows a big content text notification
+        NotificationCompat.BigTextStyle bigTextStyle = new NotificationCompat.BigTextStyle();
+        bigTextStyle.setBigContentTitle(title);
+        bigTextStyle.bigText(message);
 
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(mContext);
-        Notification notification = mBuilder.setSmallIcon(smallIcon).setTicker(title).setWhen(0)
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(mContext);
+        Notification notification = builder.setSmallIcon(smallIcon).setTicker(title).setWhen(0)
                 .setAutoCancel(true)
                 .setContentTitle(title)
                 .setContentText(message)
-                .setStyle(inboxStyle)
                 .setContentIntent(resultPendingIntent)
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
-                .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
-                .build();
+                .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon)).setStyle(bigTextStyle).build();
 
         NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(mNotificationId, notification);
