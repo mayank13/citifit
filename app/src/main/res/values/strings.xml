@@ -61,7 +61,7 @@
     <string name="task_type_cycle_unit">kms</string>
 
     <!-- Goals Screen Text-->
-    <string name="your_current_goal">Your Current Goal</string>
+    <string name="your_current_goal">Your Current Task</string>
     <string name="change_goal">Change Goal</string>
     <string name="mrp_goal">MRP</string>
     <string name="citi_points">Citi Points</string>

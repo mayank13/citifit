@@ -86,6 +86,14 @@ public class RewardActivity extends AppCompatActivity implements RewardListViewA
         RewardHolder reward6 = new RewardHolder("Citi Bank Reward", "0", "1400", "14", scaledImage6);
         mRewardList.add(reward6);
 
+        Bitmap scaledImage7 = Utils.decodeSampledBitmapFromResource(getResources(), R.drawable.goal7, 400, 400);
+        RewardHolder reward7 = new RewardHolder("Citi Platinum Card", "0", "3000", "30", scaledImage7);
+        mRewardList.add(reward7);
+
+        Bitmap scaledImage8 = Utils.decodeSampledBitmapFromResource(getResources(), R.drawable.goal8, 400, 400);
+        RewardHolder reward8 = new RewardHolder("Jacks Place", "0", "700", "7", scaledImage8);
+        mRewardList.add(reward8);
+
     }
 
 
